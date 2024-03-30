@@ -1,0 +1,120 @@
+ {{ form_errors(form) }}
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate','id':'updateform'}}) }}
+     <div class="row gx-3 mb-3">
+        <div class="col-md-6">
+    <label class="small mb-1" for="{{ form.nom.vars.id }}">Nom:</label>
+{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.nom)}}</span>
+   </div>
+        <div class="col-md-6">
+    <label class="small mb-1" for="{{ form.prenom.vars.id }}">Prenom:</label>
+{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.prenom)}}</span>
+    </div>
+         </div>
+      <div class="row gx-3 mb-3">
+        <div class="col-md-6">
+            
+    <label class="small mb-1" for="{{ form.adresse.vars.id }}">Adresse:</label>
+{{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.adresse)}}</span>
+   </div>
+    </div>
+   <div class="mb-3">
+    <label class="small mb-1" for="{{ form.email.vars.id }}">Email:</label>
+{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.email)}}</span>
+    </div>
+     <div class="row gx-3 mb-3">
+      <div class="col-md-6">
+    <label class="small mb-1"  for="{{ form.date_de_naissance.vars.id }}">Date Naissance:</label>
+{{ form_widget(form.date_de_naissance, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.date_de_naissance)}}</span>
+    </div>
+     <div class="col-md-6">
+    <label class="small mb-1" for="{{ form.image.vars.id }}">Image:</label>
+{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+<span style="color:red;">{{ form_errors(form.image)}}</span>
+
+     </div>
+ </div>
+  <div class="mb-3">
+    <label class="small mb-1"  for="{{ form.role.vars.id }}">Role:</label>
+   {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+   <span style="color:red;">{{ form_errors(form.role)}}</span>
+
+     </div>
+        <input type="submit" class="btn" value="Update" />
+    {{ form_end(form) }}
+       <script>
+    document.getElementById('updateform').addEventListener('submit', function(event) {
+        var nom = document.getElementById('{{ form.nom.vars.id }}').value.trim();
+        var prenom = document.getElementById('{{ form.prenom.vars.id }}').value.trim();
+        var adresse = document.getElementById('{{ form.adresse.vars.id }}').value.trim();
+        var email = document.getElementById('{{ form.email.vars.id }}').value.trim();
+        var date = document.getElementById('{{ form.date_de_naissance.vars.id }}').value.trim();
+        var image = document.getElementById('{{ form.image.vars.id }}').value.trim();
+        var role = document.getElementById('{{ form.role.vars.id }}').value.trim();
+        var nomRegex = /^[a-zA-Z\s]*$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (nom === '') {
+            document.getElementById('nom-error').innerText = 'Nom is required.';
+            event.preventDefault();
+        } else if (!nomRegex.test(nom)) {
+            document.getElementById('nom-error').innerText = 'Nom should contain only alphabets.';
+            event.preventDefault();
+        } else {
+            document.getElementById('nom-error').innerText = '';
+        }
+
+        if (prenom === '') {
+            document.getElementById('prenom-error').innerText = 'Prenom is required.';
+            event.preventDefault();
+        } else if (!nomRegex.test(prenom)) {
+            document.getElementById('prenom-error').innerText = 'Prenom should contain only alphabets.';
+            event.preventDefault();
+        } else {
+            document.getElementById('prenom-error').innerText = '';
+        }
+
+        if (adresse === '') {
+            document.getElementById('adresse-error').innerText = 'Adresse is required.';
+            event.preventDefault();
+        } else {
+            document.getElementById('adresse-error').innerText = '';
+        }
+
+        if (email === '') {
+            document.getElementById('email-error').innerText = 'Email is required.';
+            event.preventDefault();
+        } else if (!emailRegex.test(email)) {
+            document.getElementById('email-error').innerText = 'Enter a valid email address.';
+            event.preventDefault();
+        } else {
+            document.getElementById('email-error').innerText = '';
+        }
+
+        if (date === '') {
+            document.getElementById('date-error').innerText = 'Date is required.';
+            event.preventDefault();
+        } else {
+            document.getElementById('date-error').innerText = '';
+        }
+
+        if (image === '') {
+            document.getElementById('image-error').innerText = 'Image is required.';
+            event.preventDefault();
+        } else {
+            document.getElementById('image-error').innerText = '';
+        }
+
+        if (role === '') {
+            document.getElementById('role-error').innerText = 'Role is required.';
+            event.preventDefault();
+        } else {
+            document.getElementById('role-error').innerText = '';
+        }
+    });
+</script> 

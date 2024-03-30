@@ -28,8 +28,8 @@ class Equipe
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'equipes')]
     private ?Categorie $idcateg = null;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
-    private ?Utilisateur $idUser = null;
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'equipes')]
+    private ?Utilisateurs $idUser = null;
 
     public function getId(): ?int
     {
@@ -91,12 +91,12 @@ class Equipe
         return $this;
     }
 
-    public function getIdUser(): ?Utilisateur
+    public function getIdUser(): ?Utilisateurs
     {
         return $this->idUser;
     }
 
-    public function setIdUser(?Utilisateur $idUser): self
+    public function setIdUser(?Utilisateurs $idUser): self
     {
         $this->idUser = $idUser;
         return $this;

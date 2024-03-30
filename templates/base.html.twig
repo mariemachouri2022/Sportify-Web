@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-         <!-- Basic -->
+<html lang="en">
+   <!-- Basic -->
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <!-- Mobile Metas -->
@@ -13,40 +11,33 @@
    <meta name="description" content="">
    <meta name="author" content="">
    <!-- Site Icons -->
-   
-        {% block stylesheets %}
-             <link rel="shortcut icon" href="" type="image/x-icon" />
+   <link rel="shortcut icon" href="" type="image/x-icon" />
    <link rel="apple-touch-icon" href="">
    <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="css/bootstrap.min.css">
+   
+   <link rel="stylesheet" href="{{asset('front/css/bootstrap.min.css')}}">
    <!-- Site CSS -->
-   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="{{asset('front/style.css')}}">
    <!-- Colors CSS -->
-   <link rel="stylesheet" href="css/colors.css">
+   <link rel="stylesheet" href="{{asset('front/css/colors.css')}}">
    <!-- ALL VERSION CSS -->	
-   <link rel="stylesheet" href="css/versions.css">
+   <link rel="stylesheet" href="{{asset('front/css/versions.css')}}">
    <!-- Responsive CSS -->
-   <link rel="stylesheet" href="css/responsive.css">
+   <link rel="stylesheet" href="{{asset('front/css/responsive.css')}}">
    <!-- Custom CSS -->
-   <link rel="stylesheet" href="css/custom.css">
+   <link rel="stylesheet" href="{{asset('front/css/custom.css')}}">
    <!-- font family -->
    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
    <!-- end font family -->
    <link rel="stylesheet" href="css/3dslider.css" />
-        {% endblock %}
-
-        {% block javascripts %}
-               <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-   <script src="js/3dslider.js"></script>
-   <script src="js/all.js"></script>
-      <!-- ALL PLUGINS -->
-      <script src="js/custom.js"></script>
-        {% endblock %}
-    </head>
-<!-- LOADER -->
+   <script src="{{asset('front/js/3dslider.js')}}"></script>
+   </head>
+   <body class="game_info" data-spy="scroll" data-target=".header">
+      <!-- LOADER -->
       <div id="preloader">
-         <img class="preloader" src="images/loading-img.gif" alt="">
+         <img class="preloader" src="{{asset('front/images/loading-img.gif')}}" alt="">
       </div>
       <!-- END LOADER -->
       <section id="top">
@@ -57,7 +48,7 @@
                      <div class="col-md-6">
                         <div class="full">
                            <div class="logo" >
-                              <a href="index.html"><img src="images/logo.png" alt="#" style="    width: 157px;"/></a>
+                              <a href="index.html"><img src="{{asset('front/images/logo.png')}}" alt="#" style="    width: 157px;"/></a>
                            </div>
                         </div>
                      </div>
@@ -300,8 +291,164 @@
             </div>
          </div>
       </div>
-              {% block body %}{% endblock %}
-                    <footer id="footer" class="footer">
+      <section id="contant" class="contant">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-4 col-sm-4 col-xs-12">
+                  <aside id="sidebar" class="left-bar">
+                     <div class="banner-sidebar">
+                        <img class="img-responsive" src="images/7.jpg" alt="#" />
+                     </div>
+                  </aside>
+                  <h4>Match Fixture</h4>
+                  <aside id="sidebar" class="left-bar">
+                     <div class="feature-matchs">
+                        <div class="team-btw-match">
+                           <ul>
+                              <li>
+                                 <img src="images/t1.png" alt=""  style="    width: 75px; ">
+                                 <span>sfax</span>
+                              </li>
+                              <li class="vs"><span>vs</span></li>
+                              <li>
+                                 <img src="images/t.png" alt="" style="    width: 75px; ">
+                                 <span>Taraji</span>
+                              </li>
+                           </ul>
+                           <ul>
+                            <li>
+                               <img src="images/t1.png" alt=""  style="    width: 75px; ">
+                               <span>sfax</span>
+                            </li>
+                            <li class="vs"><span>vs</span></li>
+                            <li>
+                               <img src="images/t.png" alt=""  style="    width: 75px; ">
+                               <span>Taraji</span>
+                            </li>
+                         </ul>
+                           
+                           
+                        </div>
+                     </div>
+                  
+                 
+               </div>
+               <div class="col-lg-8 col-sm-8 col-xs-12">
+                  <div class="news-post-holder">
+                     <div class="news-post-widget">
+                        <img class="img-responsive" src="images/4.jpeg" alt="">
+                        <div class="news-post-detail">
+                           <span class="date">20 march 2016</span>
+                           <h2><a href="blog-detail.html">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h2>
+                           <p>Just hours after that his grandma had died, Angel Di Maria imagined how she might react if he didn't play</p>
+                        </div>
+                     </div>
+                     <div class="news-post-widget">
+                        <img class="img-responsive" src="images/4.jpeg" alt="">
+                        <div class="news-post-detail">
+                           <span class="date">20 march 2016</span>
+                           <h2><a href="blog-detail.html">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h2>
+                           <p>Just hours after that his grandma had died, Angel Di Maria imagined how she might react if he didn't play</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="news-post-holder">
+                     <div class="news-post-widget">
+                        <img class="img-responsive" src="images/img-03_003.jpg" alt="">
+                        <div class="news-post-detail">
+                           <span class="date">20 march 2016</span>
+                           <h2><a href="blog-detail.html">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h2>
+                           <p>Just hours after that his grandma had died, Angel Di Maria imagined how she might react if he didn't play</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="main-heading sytle-2">
+                        <h2>Video</h2>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="video_section_main theme-padding middle-bg vedio">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <div class="match_vedio">
+                        <img class="img-responsive" src="images/img-07.jpg" alt="#" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <div class="team-holder theme-padding">
+         <div class="container">
+            <div class="main-heading-holder">
+               <div class="main-heading sytle-2">
+                  <h2>Meet Your Team</h2>
+               </div>
+            </div>
+            <div id="team-slider">
+               <div class="container" style="width: 1349px ;
+               ">
+                  <div class="col-md-3">
+                     <div class="team-column style-2">
+                        <img src="images/2.jpg" alt="" style="    WIDTH: 327px;     height: 326px;
+                        ">
+                        <div class="player-name">
+                           <div class="desination-2">Defender</div>
+                           <h5>Louay Ghnima</h5>
+                           <span class="player-number">12</span>
+                        </div>
+                        <div class="overlay">
+                           <div class="team-detail-hover position-center-x">
+                              <ul class="social-icons style-4 style-5">
+                                 <li><a class="facebook" href="#" tabindex="0"><i class="fa fa-facebook"></i></a></li>
+                                 <li><a class="twitter" href="#" tabindex="0"><i class="fa fa-twitter"></i></a></li>
+                                 <li><a class="youtube" href="#" tabindex="0"><i class="fa fa-youtube-play"></i></a></li>
+                                 <li><a class="pinterest" href="#" tabindex="0"><i class="fa fa-pinterest-p"></i></a></li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="team-column style-2">
+                        <img src="images/1.jpg" alt="" style="    WIDTH: 327px;">
+                        <div class="player-name">
+                           <div class="desination-2">Defender</div>
+                           <h5>Wael Marouani</h5>
+                           <span class="player-number">12</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="team-column style-2">
+                        <img src="images/3.jpg" alt="" style="    WIDTH: 327px;">
+                        <div class="player-name">
+                           <div class="desination-2">Defender</div>
+                           <h5>Wassim Chamakh</h5>
+                           <span class="player-number">12</span>
+                        </div>
+                     </div>
+                  </div>
+                 
+               </div>
+            </div>
+         </div>
+      </div>
+      <footer id="footer" class="footer">
          <div class="container">
             <div class="row">
                <div class="col-md-4">
@@ -359,5 +506,10 @@
             </div>
          </div>
       </footer>
-    </body>
+      <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+      <!-- ALL JS FILES -->
+      <script src="{{asset('front/js/all.')}}"></script>
+      <!-- ALL PLUGINS -->
+      <script src="{{asset('front/js/custom.js')}}"></script>
+   </body>
 </html>

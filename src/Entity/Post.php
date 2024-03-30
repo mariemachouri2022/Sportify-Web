@@ -18,6 +18,10 @@ class Post
    #----------------
     #[ORM\Column]
     private ?int $idUser=null;
+    
+
+    #[ORM\Column]
+    private ?string $userRole=null;
 
    
     #[ORM\Column]
@@ -38,6 +42,16 @@ class Post
     public function getIdUser(): ?int
     {
         return $this->idUser;
+    }
+    public function getUserRole(): ?string
+    {
+        return $this->userRole;
+    }
+    public function setUserRole(?string $x): static
+    {
+        $this->userRole = $x;
+
+        return $this;
     }
 
     public function setIdUser(?int $idUser): static

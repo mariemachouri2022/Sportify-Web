@@ -28,28 +28,11 @@ class StudentController extends AbstractController
         return $this->render('contact.html.twig');
     }
 
-    #[Route('/login', name: 'app_login', methods: ['GET'])]
-    public function login(StudentRepository $studentRepository): Response
-    {
-        return $this->render('login.html.twig');
-    }
+    
 
-    #[Route('/admin', name: 'app_admin', methods: ['GET'])]
-    public function admin(StudentRepository $studentRepository): Response
-    {
-        return $this->render('admin.html.twig');
-    }
+ 
 
-    #[Route('/acc', name: 'app_acc', methods: ['GET'])]
-    public function acc(StudentRepository $studentRepository): Response
-    {
-        return $this->render('acc.html.twig');
-    }
-    #[Route('/acc2', name: 'app_acc2', methods: ['GET'])]
-    public function acc2(StudentRepository $studentRepository): Response
-    {
-        return $this->render('acc2.html.twig');
-    }
+   
     #[Route('/categorie', name: 'app_categorie', methods: ['GET'])]
     public function categorie(StudentRepository $studentRepository): Response
     {
@@ -60,31 +43,13 @@ class StudentController extends AbstractController
     {
         return $this->render('evenement.html.twig');
     }
-    #[Route('/profile', name: 'app_profile', methods: ['GET'])]
-    public function profile(StudentRepository $studentRepository): Response
-    {
-        return $this->render('profile.html.twig');
-    }
-    #[Route('/profile2', name: 'app_profile2', methods: ['GET'])]
-    public function profile2(StudentRepository $studentRepository): Response
-    {
-        return $this->render('profile2.html.twig');
-    }
+    
     #[Route('/team', name: 'app_team', methods: ['GET'])]
     public function team(StudentRepository $studentRepository): Response
     {
         return $this->render('team.html.twig');
     }
-    #[Route('/update', name: 'app_update', methods: ['GET'])]
-    public function update(StudentRepository $studentRepository): Response
-    {
-        return $this->render('update.html.twig');
-    }
-    #[Route('/updateprofile', name: 'app_updateprofile', methods: ['GET'])]
-    public function updateprofile(StudentRepository $studentRepository): Response
-    {
-        return $this->render('updateprofile.html.twig');
-    }
+   
 
 //here1 *********************
     #[Route('/list', name: 'app_student_index', methods: ['GET'])]
