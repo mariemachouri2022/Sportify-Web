@@ -11,6 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Categorie;
+use App\Form\CategorieType;
+use App\Repository\CategorieRepository;
+use App\Entity\Equipe;
+use App\Form\EquipeType;
+use App\Repository\EquipeRepository;
+use App\Controller\EquipeController;
 
 class StudentController extends AbstractController
 {
@@ -161,5 +169,115 @@ class StudentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);
+    }
+    //Categorie *********************
+    #[Route('/categorie/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
+    public function newCategorie(Request $request, EntityManagerInterface $entityManager): Response
+   {
+    $categorie = new Categorie();
+    $form = $this->createForm(CategorieType::class, $categorie);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->persist($categorie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('categorie/new.html.twig', [
+        'categorie' => $categorie,
+        'form' => $form,
+    ]);
+    }
+    #[Route('/categorie/{IDCateg}', name: 'app_categorie_show', methods: ['GET'])]
+    public function showCategorie(Categorie $categorie): Response
+    {
+        return $this->render('categorie/show.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
+    #[Route('/categorie/{IDCateg}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
+    public function editCategorie(Request $request, Categorie $categorie, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('categorie/edit.html.twig', [
+            'categorie' => $categorie,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/categorie/{IDCateg}/delete', name: 'app_categorie_delete', methods: ['POST'])]
+    public function deleteCategorie(Request $request, Categorie $categorie, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$categorie->getIDCateg(), $request->request->get('_token'))) {
+            $entityManager->remove($categorie);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    //Equipe *********************
+    #[Route('/equipe/new', name: 'app_equipe_new', methods: ['GET', 'POST'])]
+    public function newEquipe(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $equipe = new Equipe();
+        $form = $this->createForm(EquipeType::class, $equipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($equipe);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('equipe/new.html.twig', [
+            'equipe' => $equipe,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/equipe/{IDEquipe}', name: 'app_equipe_show', methods: ['GET'])]
+    public function showEquipe(Equipe $equipe): Response
+    {
+        return $this->render('equipe/show.html.twig', [
+            'equipe' => $equipe,
+        ]);
+    }
+    #[Route('/equipe/{IDEquipe}/edit', name: 'app_equipe_edit', methods: ['GET', 'POST'])]
+    public function editEquipe(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(EquipeType::class, $equipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('equipe/edit.html.twig', [
+            'equipe' => $equipe,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/equipe/{IDEquipe}', name: 'app_equipe_delete', methods: ['POST'])]
+    public function deleteEquipe(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$equipe->getIDEquipe(), $request->request->get('_token'))) {
+            $entityManager->remove($equipe);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
 }

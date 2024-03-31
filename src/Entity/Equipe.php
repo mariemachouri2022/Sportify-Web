@@ -4,36 +4,48 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EquipeRepository;
+use App\Entity\Categorie;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
 class Equipe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "IDEquipe", type: "integer")]
+    private ?int $IDEquipe = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
+    #[Assert\NoSuspiciousCharacters]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le niveau ne doit pas être vide.")]
     private ?string $niveau = null;
 
     #[ORM\Column(type: "boolean")]
+    #[Assert\NotBlank(message: "Le Random ne doit pas être vide.")]
     private ?bool $israndom = null;
 
     #[ORM\Column(type: "integer")]
+    #[Assert\NotBlank(message: "Le rank ne doit pas être vide.")]
+    #[Assert\Positive(message: "Le rank doit être un nombre positif.")]
     private ?int $rank = null;
 
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'equipes')]
-    private ?Categorie $idcateg = null;
+    #[ORM\JoinColumn(name: "IDCateg", referencedColumnName: "IDCateg")]
+    #[Assert\NotBlank(message: "La catégorie ne doit pas être vide.")]
+    private ?Categorie $IDCateg = null;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
-    private ?Utilisateur $idUser = null;
-
-    public function getId(): ?int
+    #[ORM\JoinColumn(name: "id", referencedColumnName: "id")]
+    #[Assert\NotBlank(message: "L'email ne doit pas être vide.")]
+    private ?Utilisateur $utilisateur = null;
+    
+    public function getIDEquipe(): ?int
     {
-        return $this->id;
+        return $this->IDEquipe;
     }
 
     public function getNom(): ?string
@@ -80,25 +92,25 @@ class Equipe
         return $this;
     }
 
-    public function getIdcateg(): ?Categorie
+    public function getIDCateg(): ?Categorie
     {
-        return $this->idcateg;
+        return $this->IDCateg;
     }
 
-    public function setIdcateg(?Categorie $idcateg): self
+    public function setIDCateg(?Categorie $IDCateg): self
     {
-        $this->idcateg = $idcateg;
+        $this->IDCateg = $IDCateg;
         return $this;
     }
 
-    public function getIdUser(): ?Utilisateur
+    public function getUtilisateur(): ?Utilisateur 
     {
-        return $this->idUser;
+        return $this->utilisateur;
     }
 
-    public function setIdUser(?Utilisateur $idUser): self
+    public function setUtilisateur(?Utilisateur $utilisateur): self 
     {
-        $this->idUser = $idUser;
+        $this->utilisateur = $utilisateur;
         return $this;
     }
 }

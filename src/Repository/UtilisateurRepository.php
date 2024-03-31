@@ -45,4 +45,18 @@ class UtilisateurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+/**
+     * Find a user by email.
+     *
+     * @param string $email
+     * @return Utilisateur|null
+     */
+    public function findByEmail(string $email): ?Utilisateur
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
