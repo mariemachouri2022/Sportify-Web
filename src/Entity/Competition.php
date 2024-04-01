@@ -7,13 +7,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Date;
 use App\Repository\CompetitionRepository;
+use App\Entity\Equipe ;
 
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
 class Competition
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "ID_Competition", type: "integer")]
     private ?int $idCompetition=null;
 
     #[ORM\Column(length:100)]
@@ -23,7 +24,7 @@ class Competition
     private ?string $type=null;
 
     #[ORM\Column]
-    private ?Date $date=null;
+    private ?DateTime $date=null;
 
     #[ORM\Column]
     private ?DateTime $heure=null;
@@ -32,13 +33,19 @@ class Competition
     private ?string $description=null;
 
      #[ORM\ManyToOne(inversedBy:'competitions')]   
-    private ?Terrain $terrain=null;
+     #[ORM\JoinColumn(name: 'terrain_id', referencedColumnName: 'id_terrain')]
+     private ?Terrain $terrain=null;
       
-    #[ORM\ManyToOne(inversedBy:'competitions')]   
-    private ?Equipe $equipe1=null;
+    
 
-    #[ORM\ManyToOne(inversedBy:'competitionss')]   
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'equipe1_id', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $equipe1 = null;
+
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'equipe2_id', referencedColumnName: 'IDEquipe')]
     private ?Equipe $equipe2=null;
+
 
     public function getIdCompetition(): ?int
     {

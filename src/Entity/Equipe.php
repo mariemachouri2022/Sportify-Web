@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EquipeRepository;
 
@@ -10,8 +12,8 @@ class Equipe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "IDEquipe", type: "integer")]
+    private ?int $IDEquipe = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -25,15 +27,17 @@ class Equipe
     #[ORM\Column(type: "integer")]
     private ?int $rank = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'equipes')]
-    private ?Categorie $idcateg = null;
+    #[ORM\ManyToOne(targetEntity: Categorie::class)]
+    #[ORM\JoinColumn(name: 'IDCateg', referencedColumnName: 'IDCateg')]
+    private ?Categorie $IDCateg = null;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
-    private ?Utilisateur $idUser = null;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id')]   
+    private ?Utilisateur $id_user = null;
 
-    public function getId(): ?int
+    public function getIdEquipe(): ?int
     {
-        return $this->id;
+        return $this->IDEquipe;
     }
 
     public function getNom(): ?string
@@ -82,23 +86,54 @@ class Equipe
 
     public function getIdcateg(): ?Categorie
     {
-        return $this->idcateg;
+        return $this->IDCateg;
     }
 
-    public function setIdcateg(?Categorie $idcateg): self
+    public function setIdcateg(?Categorie $IDCateg): self
     {
-        $this->idcateg = $idcateg;
+        $this->IDCateg = $IDCateg;
         return $this;
     }
 
     public function getIdUser(): ?Utilisateur
     {
-        return $this->idUser;
+        return $this->id_user;
     }
 
-    public function setIdUser(?Utilisateur $idUser): self
+    public function setIdUser(?Utilisateur $id_user): self
     {
-        $this->idUser = $idUser;
+        $this->id_user = $id_user;
         return $this;
     }
+
+  
+    /*
+     * @return Collection<int, Competition>
+     
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    /*public function addCompetition(Competition $competition): static
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions->add($competition);
+            $competition->setEquipe1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Competition $competition): static
+    {
+        if ($this->competitions->removeElement($competition)) {
+            // set the owning side to null (unless already changed)
+            if ($competition->getEquipe1() === $this) {
+                $competition->setEquipe1(null);
+            }
+        }
+
+        return $this;
+    }*/
 }

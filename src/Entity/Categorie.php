@@ -10,8 +10,8 @@ class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "IDCateg", type: "integer")]
+    private ?int $IDCateg = null;
 
     #[ORM\Column(length: 150)]
     private ?string $nom = null;
@@ -24,7 +24,7 @@ class Categorie
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->IDCateg;
     }
 
     public function getNom(): ?string
@@ -58,5 +58,10 @@ class Categorie
     {
         $this->image = $image;
         return $this;
+    }
+
+    public function getIDCateg(): ?int
+    {
+        return $this->IDCateg;
     }
 }

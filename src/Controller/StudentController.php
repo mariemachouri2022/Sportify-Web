@@ -16,6 +16,8 @@ class StudentController extends AbstractController
 {
  
    
+    
+
     #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(StudentRepository $studentRepository): Response
     {

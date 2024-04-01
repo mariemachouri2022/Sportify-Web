@@ -10,8 +10,8 @@ class Terrain
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column]
+    private ?int $id_Terrain = null;
 
     #[ORM\Column(length:255)]
     private ?string $nom = null;
@@ -33,7 +33,7 @@ class Terrain
 
     public function getIdTerrain(): ?int
     {
-        return $this->idTerrain;
+        return $this->id_Terrain;
     }
 
     public function getNom(): ?string

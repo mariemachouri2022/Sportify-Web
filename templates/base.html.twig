@@ -8,45 +8,33 @@
    <!-- Mobile Metas -->
    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
    <!-- Site Metas -->
-   <title>Game Info</title>
+   <title>SPORTIFY</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
    <!-- Site Icons -->
    
-        {% block stylesheets %}
-             <link rel="shortcut icon" href="" type="image/x-icon" />
-   <link rel="apple-touch-icon" href="">
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <!-- Site CSS -->
-   <link rel="stylesheet" href="style.css">
-   <!-- Colors CSS -->
-   <link rel="stylesheet" href="css/colors.css">
-   <!-- ALL VERSION CSS -->	
-   <link rel="stylesheet" href="css/versions.css">
-   <!-- Responsive CSS -->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- Custom CSS -->
-   <link rel="stylesheet" href="css/custom.css">
-   <!-- font family -->
-   <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-   <!-- end font family -->
-   <link rel="stylesheet" href="css/3dslider.css" />
-        {% endblock %}
+      {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="css/colors.css">
+    <link rel="stylesheet" href="{{ asset('css/versions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/3dslider.css') }}">
+{% endblock %}
 
-        {% block javascripts %}
-               <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-   <script src="js/3dslider.js"></script>
-   <script src="js/all.js"></script>
-      <!-- ALL PLUGINS -->
-      <script src="js/custom.js"></script>
-        {% endblock %}
+{% block javascripts %}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('js/3dslider.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
     </head>
 <!-- LOADER -->
       <div id="preloader">
-         <img class="preloader" src="images/loading-img.gif" alt="">
+         <img class="preloader" src="/images/loading-img.gif" alt="">
       </div>
       <!-- END LOADER -->
       <section id="top">
@@ -57,7 +45,7 @@
                      <div class="col-md-6">
                         <div class="full">
                            <div class="logo" >
-                              <a href="index.html"><img src="images/logo.png" alt="#" style="    width: 157px;"/></a>
+                              <a href="index.html"><img src="/images/logo.png" alt="#" style="    width: 157px;"/></a>
                            </div>
                         </div>
                      </div>
@@ -117,15 +105,15 @@
                                                       <div id="menCollection" class="carousel slide" data-ride="carousel">
                                                          <div class="carousel-inner">
                                                             <div class="item active">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="/images/match-banner1.jpg" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->
                                                             <div class="item">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="/images/match-banner1.jpg" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->
                                                             <div class="item">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="/images/match-banner1.jpg" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->                                
                                                          </div>
@@ -268,12 +256,12 @@
                         <div class="team-btw-match">
                            <ul>
                               <li>
-                                 <img src="images/t1.png" alt="" style="   width: 90px; ">
+                                 <img src="/images/t1.png" alt="" style="   width: 90px; ">
                                  <span>Footbal Team</span>
                               </li>
                               <li class="vs"><span>vs</span></li>
                               <li>
-                                 <img src="images/t.png" alt=""  style="    width: 75px; ">
+                                 <img src="/images/t.png" alt=""  style="    width: 75px; ">
                                  <span>Super Team Club</span>
                               </li>
                            </ul>
@@ -300,7 +288,7 @@
             </div>
          </div>
       </div>
-              {% block body %}{% endblock %}
+               {% block body %}{% endblock %}
                     <footer id="footer" class="footer">
          <div class="container">
             <div class="row">
@@ -308,7 +296,7 @@
                   <div class="full">
                      <div class="footer-widget">
                         <div class="footer-logo">
-                           <a href="#"><img src="images/logo.png" alt="#" /></a>
+                           <a href="#"><img src="/images/logo.png" alt="#" /></a>
                         </div>
                         <p>Welcome to Sportify.</p>
                         <ul class="social-icons style-4 pull-left">
@@ -355,7 +343,7 @@
          </div>
          <div class="footer-bottom">
             <div class="container">
-               <p>Copyright © 2034 Distributed by <a href="" target="_blank">Sportify</a></p>
+               <p>Copyright © 2024 Distributed by <a href="" target="_blank">Sportify</a></p>
             </div>
          </div>
       </footer>
