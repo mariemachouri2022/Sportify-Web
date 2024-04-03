@@ -3,9 +3,31 @@
 {% block title %}New Equipe{% endblock %}
 
 {% block body %}
-    <h1>Create new Equipe</h1>
+    <h1>Create a New Equipe</h1>
 
-    {{ include('equipe/_form.html.twig') }}
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.niveau) }}
+        {{ form_row(form.israndom) }}
+        {{ form_row(form.rank) }}
+        {{ form_row(form.idcateg) }}
 
-    <a href="{{ path('app_equipe_index') }}">back to list</a>
+        <div id="utilisateurs" data-prototype="{{ form_widget(form.utilisateurs.vars.prototype)|e }}">
+            {% for utilisateurForm in form.utilisateurs %}
+                {{ form_row(utilisateurForm) }}
+            {% endfor %}
+        </div>
+
+        <button type="button" class="btn btn-primary" id="add-player">Add Player</button>
+        <button type="submit" class="btn btn-success">Save Equipe</button>
+    {{ form_end(form) }}
+
+    <script>
+        document.getElementById('add-player').addEventListener('click', function () {
+            var playersContainer = document.getElementById('utilisateurs');
+            var index = playersContainer.children.length;
+            var newForm = playersContainer.getAttribute('data-prototype').replace(/__name__/g, index);
+            playersContainer.insertAdjacentHTML('beforeend', newForm);
+        });
+    </script>
 {% endblock %}

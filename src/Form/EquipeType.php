@@ -10,6 +10,10 @@ use App\Form\UtilisateurType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
+
 class EquipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -23,21 +27,23 @@ class EquipeType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => 'nom',
             ])
-            ->add('utilisateur', EntityType::class, [
-                'class' => Utilisateur::class,
-                'choices' => $options['users'], // Use the fetched users as choices
-                'choice_label' => function ($user) {
-                    // Customize how the users are displayed in the select field
-                    return $user->getNom() . ' ' . $user->getPrenom(); // Display user's full name
-                },
+            ->remove('emails') // Remove the emails field
+            ->add('utilisateurs', CollectionType::class, [
+                'entry_type' => UtilisateurType::class, // Assuming you have a UtilisateurType for rendering each player
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
             ]);
+    
+    
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Equipe::class,
-            'users' => [],
+           
         ]);
     }
 }

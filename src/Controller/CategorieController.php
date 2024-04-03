@@ -28,19 +28,23 @@ class CategorieController extends AbstractController
         $categorie = new Categorie();
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle form submission
             $entityManager->persist($categorie);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+    
+            // Redirect to the list template
+            return $this->redirectToRoute('app_categorie_index');
         }
-
-        return $this->renderForm('categorie/new.html.twig', [
+    
+        return $this->render('categorie/new.html.twig', [
             'categorie' => $categorie,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+    
+
 
     #[Route('/categorie/{IDCateg}', name: 'app_categorie_show', methods: ['GET'])]
     public function show(Categorie $categorie): Response

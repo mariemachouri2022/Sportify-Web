@@ -6,6 +6,8 @@ use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur
@@ -39,6 +41,35 @@ class Utilisateur
 
     #[ORM\Column]
     private ?bool $verified=null;
+    
+    #[ORM\ManyToMany(targetEntity: Equipe::class, mappedBy: 'utilisateurs', inversedBy: 'equipes')]
+    private Collection $equipes;
+
+    public function __construct()
+    {
+        $this->equipes = new ArrayCollection();
+    }
+
+    public function getEquipes(): Collection
+    {
+        return $this->equipes;
+    }
+
+    public function addEquipe(Equipe $equipe): self
+    {
+        if (!$this->equipes->contains($equipe)) {
+            $this->equipes[] = $equipe;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(Equipe $equipe): self
+    {
+        $this->equipes->removeElement($equipe);
+
+        return $this;
+    }
 
     public function getId(): ?int
     {

@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EquipeRepository;
 use App\Entity\Categorie;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
 class Equipe
@@ -38,10 +41,11 @@ class Equipe
     #[Assert\NotBlank(message: "La catégorie ne doit pas être vide.")]
     private ?Categorie $IDCateg = null;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
-    #[ORM\JoinColumn(name: "id", referencedColumnName: "id")]
-    #[Assert\NotBlank(message: "L'email ne doit pas être vide.")]
-    private ?Utilisateur $utilisateur = null;
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class, inversedBy: 'equipes', cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'equipe_members')]
+    private Collection $utilisateurs;
+   
+    
     
     public function getIDEquipe(): ?int
     {
@@ -103,14 +107,30 @@ class Equipe
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur 
+    public function __construct()
     {
-        return $this->utilisateur;
+        $this->utilisateurs = new ArrayCollection();
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self 
+    public function getUtilisateurs(): Collection
     {
-        $this->utilisateur = $utilisateur;
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): self
+    {
+        $this->utilisateurs->removeElement($utilisateur);
+
         return $this;
     }
 }
+
