@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ClassementEquipeRepository;
+use App\Entity\Equipe ;
+
 
 
 #[ORM\Entity(repositoryClass: ClassementEquipeRepository::class)]
@@ -15,11 +17,10 @@ class Classementequipe
       #[ORM\Column]
     private ?int $id=null;
 
-    ##----
-    #[ORM\Column()]
-    private ?int $equipeId;
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'equipe_id', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $equipeId;
 
-   
     #[ORM\Column()]
     private  ?int $points=null;
 
@@ -43,12 +44,12 @@ class Classementequipe
         return $this->id;
     }
 
-    public function getEquipeId(): ?int
+    public function getEquipeId(): ?Equipe
     {
         return $this->equipeId;
     }
 
-    public function setEquipeId(int $equipeId): static
+    public function setEquipeId(Equipe $equipeId): static
     {
         $this->equipeId = $equipeId;
 

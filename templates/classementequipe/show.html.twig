@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classementequipe{% endblock %}
+
+{% block body %}
+    <h1>Classementequipe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ classementequipe.id }}</td>
+            </tr>
+            <tr>
+                <th>Points</th>
+                <td>{{ classementequipe.points }}</td>
+            </tr>
+            <tr>
+                <th>Rank</th>
+                <td>{{ classementequipe.rank }}</td>
+            </tr>
+            <tr>
+                <th>NbreDeMatch</th>
+                <td>{{ classementequipe.nbreDeMatch }}</td>
+            </tr>
+            <tr>
+                <th>Win</th>
+                <td>{{ classementequipe.win }}</td>
+            </tr>
+            <tr>
+                <th>Draw</th>
+                <td>{{ classementequipe.draw }}</td>
+            </tr>
+            <tr>
+                <th>Loss</th>
+                <td>{{ classementequipe.loss }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_classementequipe_index') }}">back to list</a>
+
+    <a href="{{ path('app_classementequipe_edit', {'id': classementequipe.id}) }}">edit</a>
+
+    {{ include('classementequipe/_delete_form.html.twig') }}
+{% endblock %}

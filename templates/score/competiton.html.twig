@@ -14,30 +14,30 @@
                 <th>Heure</th>
                 <th>Description</th>
                 <th>Terrain</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for competition in competitions %}
-            <tr>
-                <td>{{ competition.nom }}</td>
-                <td>{{ competition.type }}</td>
-                <td>{{ competition.date ? competition.date|date('Y-m-d') : ''  }}</td>
-                <td>{{ competition.heure ? competition.heure|date('H:i:s') : '' }}</td>
-                <td>{{ competition.description }}</td>
-                <td>{{ competition.Terrain.nom }}</td>
-                <td>
-                    <a href="{{ path('app_score_new', {'idCompetition': competition.idCompetition}) }}">Score</a>
-                    <a href="{{ path('app_competition_edit', {'idCompetition': competition.idCompetition}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for competition in competitions %}
+                <tr>
+                    <td>{{ competition.nom }}</td>
+                    <td>{{ competition.type }}</td>
+                    <td>{{ competition.date ? competition.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ competition.heure ? competition.heure|date('H:i:s') : '' }}</td>
+                    <td>{{ competition.description }}</td>
+                    <td>{{ competition.Terrain.nom }}</td>
+                    <td>
+                        {% if competition.date is null or competition.date|date('U') < "now"|date('U') %}
+                            <a href="{{ path('app_score_new', {'idCompetition': competition.idCompetition}) }}">Score</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_competition_new') }}">Create new</a>
 {% endblock %}

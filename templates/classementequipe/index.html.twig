@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classementequipe index{% endblock %}
+
+{% block body %}
+    <h1>Classementequipe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Equipe</th>
+                <th>Points</th>
+                <th>NbreDeMatch</th>
+                <th>Win</th>
+                <th>Draw</th>
+                <th>Loss</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for classementequipe in classementequipes %}
+            <tr>
+                <td>{{ classementequipe.rank }}</td>
+                <td>{{ classementequipe.equipeId.nom }}</td>
+                <td>{{ classementequipe.points }}</td>
+                <td>{{ classementequipe.nbreDeMatch }}</td>
+                <td>{{ classementequipe.win }}</td>
+                <td>{{ classementequipe.draw }}</td>
+                <td>{{ classementequipe.loss }}</td>
+                <td>
+                    <a href="{{ path('app_classementequipe_show', {'id': classementequipe.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -18,8 +18,13 @@ class StudentController extends AbstractController
    
     
 
-    #[Route('/', name: 'app_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_index', methods: ['GET'])]
     public function index(StudentRepository $studentRepository): Response
+    {
+        return $this->render('index.html.twig');
+    }
+     #[Route('/', name: 'app_index', methods: ['GET'])]
+    public function indexx(StudentRepository $studentRepository): Response
     {
         return $this->render('index.html.twig');
     }

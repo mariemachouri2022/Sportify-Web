@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Classementequipe{% endblock %}
+
+{% block body %}
+    <h1>Edit Classementequipe</h1>
+
+    {{ include('classementequipe/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_classementequipe_index') }}">back to list</a>
+
+    {{ include('classementequipe/_delete_form.html.twig') }}
+{% endblock %}
