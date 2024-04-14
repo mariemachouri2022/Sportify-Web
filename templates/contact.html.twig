@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+      <section id="contant" class="contant main-heading team">
+         <div class="row">
+            <div class="container">
+               <div class="contact">
+                 
+                  <div class="col-md-6">
+                     <div class="contact-info">
+                        <div class="kode-section-title">
+                           <h3>Contact Info</h3>
+                        </div>
+                      
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="contact-us">
+                        <form method="post" class="comments-form" id="contactform">
+                           <ul>
+                              <li><input type="text" id="name" name="name" class="required" placeholder="Name *"></li>
+                              <li><input type="text" id="email" name="email" class="required email" placeholder="Email *"></li>
+                              <li><input type="text" name="address" id="address" placeholder="Address:"></li>
+                              <li><textarea name="message" id="message" placeholder="Add your message"></textarea></li>
+                              <li><input class="thbg-color" type="submit" value="send"></li>
+                           </ul>
+                           <div class="hidden-me" id="contact_form_responce">
+                              <p></p>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+{%endblock%}
