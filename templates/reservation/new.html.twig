@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reservation{% endblock %}
+
+{% block body %}
+    <style>
+        /* Button styles */
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        /* Link styles */
+        .link {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: darkblue;
+            text-decoration: underline;
+        }
+
+        /* Terrain image styles */
+        .terrain-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* Form styles */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .reservation-form {
+            width: 100%;
+            max-width: 400px; /* Adjust based on your design */
+        }
+    </style>
+
+    <h1>Create New Reservation</h1>
+
+    <div class="form-container">
+        {{ include('reservation/_form.html.twig', {'form': form}) }}
+    </div>
+
+    <a href="{{ path('app_reservation_index') }}" class="button">Back to list</a>
+{% endblock %}

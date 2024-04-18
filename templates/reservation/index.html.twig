@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Import Font Awesome CSS -->
+    <style>
+        /* Reservation container styles */
+        .reservation-container {
+            display: flex;
+            flex-wrap: wrap; /* Wrap items to next line if container width is exceeded */
+            justify-content: space-between; /* Distribute items evenly with space between */
+        }
+
+        /* Reservation box styles */
+        .reservation-box {
+            width: calc(33.33% - 16px);
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .reservation-box:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Button styles */
+        .button-container {
+            margin-top: 8px;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 8px 16px; /* Adjust padding to make buttons same size */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: transform 0.3s;
+            background-color: #007bff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:hover:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+            transition: transform 0.3s ease;
+            transform: translateX(-110%);
+        }
+
+        .button:hover:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            transition: transform 0.3s ease;
+            transform: translateX(110%);
+        }
+
+        .button:hover i {
+            transform: translateX(30%);
+        }
+
+        .button i {
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Link styles */
+        .link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Terrain styles */
+        .terrain-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .terrain-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Reservation index</h1>
+
+    <div class="reservation-container">
+        {% for reservation in reservations %}
+            <div class="reservation-box">
+                {% if reservation.idTerrain %}
+                    <p class="terrain-name">{{ reservation.idTerrain.nom }}</p>
+                    {% if reservation.idTerrain.imageTer %}
+                        <img src="{{ asset('uploads/terrain_images/' ~ reservation.idTerrain.imageTer) }}" alt="Terrain Image" class="terrain-image">
+                    {% else %}
+                        <div class="no-image">
+                            Pas d'image disponible
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <p><strong>Date and Time:</strong> {{ reservation.dateHeure ? reservation.dateHeure|date('Y-m-d H:i:s') : '' }}</p>
+                <p><strong>Duration:</strong> {{ reservation.duree }}</p>
+                <div class="button-container">
+                    <a href="{{ path('app_reservation_show', {'idReservation': reservation.idReservation}) }}" class="button show">Show <i class="fas fa-eye"></i></a>
+                    <a href="{{ path('app_reservation_edit', {'idReservation': reservation.idReservation}) }}" class="button edit">Edit <i class="fas fa-edit"></i></a>
+                    <form method="post" action="{{ path('app_reservation_delete', {'idReservation': reservation.idReservation}) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.idReservation) }}">
+                        <button type="submit" class="button delete">Delete <i class="fas fa-trash-alt"></i></button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>No records found</p>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('app_reservation_new') }}" class="button">Create new <i class="fas fa-plus"></i></a>
+{% endblock %}
