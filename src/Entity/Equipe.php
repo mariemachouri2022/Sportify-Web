@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EquipeRepository;
 
 #[ORM\Entity(repositoryClass: EquipeRepository::class)]
 class Equipe
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "IDEquipe", type: "integer")]
+    private ?int $IDEquipe = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -26,14 +29,29 @@ class Equipe
     private ?int $rank = null;
 
     #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'equipes')]
-    private ?Categorie $idcateg = null;
+    #[ORM\JoinColumn(name: "IDCateg", referencedColumnName: "IDCateg")]
+    private ?Categorie $IDCateg = null;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
+    #[ORM\JoinColumn(name: "id_createur", referencedColumnName: "ID_User")]
     private ?Utilisateur $idUser = null;
 
-    public function getId(): ?int
+    #[ORM\OneToMany(mappedBy: 'Equipe1', targetEntity: Matc::class)]
+    private Collection $matcs;
+    #[ORM\OneToMany(mappedBy: 'Equipe2', targetEntity: Matc::class)]
+    private Collection $matcs2;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->matcs = new ArrayCollection();
+        $this->matcs2 = new ArrayCollection();
+
+    }
+    
+
+    public function getIdEquipe(): ?int
+    {
+        return $this->IDEquipe;
     }
 
     public function getNom(): ?string
@@ -82,12 +100,12 @@ class Equipe
 
     public function getIdcateg(): ?Categorie
     {
-        return $this->idcateg;
+        return $this->IDCateg;
     }
 
-    public function setIdcateg(?Categorie $idcateg): self
+    public function setIdcateg(?Categorie $IDCateg): self
     {
-        $this->idcateg = $idcateg;
+        $this->IDCateg = $IDCateg;
         return $this;
     }
 
@@ -101,4 +119,66 @@ class Equipe
         $this->idUser = $idUser;
         return $this;
     }
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Matc>
+     */
+    public function getMatcs(): Collection
+    {
+        return $this->matcs;
+    }
+
+    public function addMatc(Matc $matc): static
+    {
+        if (!$this->matcs->contains($matc)) {
+            $this->matcs->add($matc);
+            $matc->setEquipe1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatc(Matc $matc): static
+    {
+        if ($this->matcs->removeElement($matc)) {
+            // set the owning side to null (unless already changed)
+            if ($matc->getEquipe1() === $this) {
+                $matc->setEquipe1(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getMatcs2(): Collection
+    {
+        return $this->matcs2;
+    }
+
+    public function addMatc2(Matc $matc): static
+    {
+        if (!$this->matcs2->contains($matc)) {
+            $this->matcs2->add($matc);
+            $matc->setEquipe2($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatc2(Matc $matc): static
+    {
+        if ($this->matcs2->removeElement($matc)) {
+            // set the owning side to null (unless already changed)
+            if ($matc->getEquipe2() === $this) {
+                $matc->setEquipe2(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
+

@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArbitreRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArbitreRepository::class)]
 class Arbitre
@@ -13,7 +16,8 @@ class Arbitre
     
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "id_arbitre", type: "integer")]
+
     private ?int $idArbitre=null;
 
   
@@ -26,11 +30,21 @@ class Arbitre
 
    
     #[ORM\Column(length:255)]
+    #[Assert\Email(message: 'The email {{ value }} is not a valid email.',)]
+    #[Assert\NotBlank(message: "vous devez mettre votre email!!!")]
     private ?string $email=null;
 
     
     #[ORM\Column(length:255)]
     private ?string $phone=null;
+
+    #[ORM\OneToMany(mappedBy: 'arbitre', targetEntity: Matc::class)]
+    private Collection $matcs;
+
+    public function __construct()
+    {
+        $this->matcs = new ArrayCollection();
+    }
 
     public function getIdArbitre(): ?int
     {
@@ -84,6 +98,41 @@ class Arbitre
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Matc>
+     */
+    public function getMatcs(): Collection
+    {
+        return $this->matcs;
+    }
+
+    public function addMatc(Matc $matc): static
+    {
+        if (!$this->matcs->contains($matc)) {
+            $this->matcs->add($matc);
+            $matc->setArbitre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatc(Matc $matc): static
+    {
+        if ($this->matcs->removeElement($matc)) {
+            // set the owning side to null (unless already changed)
+            if ($matc->getArbitre() === $this) {
+                $matc->setArbitre(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

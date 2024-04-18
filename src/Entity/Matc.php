@@ -12,7 +12,8 @@ class Matc
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: "ID_Matc", type: "integer")]
+    
     private ?int $idMatc=null;
 
     #[ORM\Column(length:100)]
@@ -22,25 +23,27 @@ class Matc
    #[ORM\Column(length:100)]
     private ?string $type=null;
 
-  
-    #[ORM\Column]
-    private ?DateTime $date=null;
+   #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column]
-    private ?DateTime $heure=null;
-
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $heure = null;
+   
     #[ORM\Column(length:255)]
     private ?string $description=null;
-     
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'Equipe1', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $Equipe1 = null;
 
-    #-----------
-    #[ORM\Column]
-    private ?int $equipe1=null;
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'Equipe2', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $Equipe2 = null;
 
-
-    #------------
-    #[ORM\Column]
-    private ?int $equipe2=null;
+    #[ORM\ManyToOne(inversedBy: 'matcs')]
+    #[ORM\JoinColumn(name: 'arbitre', referencedColumnName: 'id_arbitre')]
+    private ?Arbitre $arbitre = null;
+    
+    
 
     public function getIdMatc(): ?int
     {
@@ -71,29 +74,13 @@ class Matc
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
+    
+    
 
-    public function setDate(?\DateTimeInterface $date): static
-    {
-        $this->date = $date;
+    
 
-        return $this;
-    }
 
-    public function getHeure(): ?\DateTimeInterface
-    {
-        return $this->heure;
-    }
 
-    public function setHeure(?\DateTimeInterface $heure): static
-    {
-        $this->heure = $heure;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -107,29 +94,69 @@ class Matc
         return $this;
     }
 
-    public function getEquipe1(): ?int
+   
+
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->equipe1;
+        return $this->date;
     }
 
-    public function setEquipe1(?int $equipe1): static
+    public function setDate(\DateTimeInterface $date): static
     {
-        $this->equipe1 = $equipe1;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getEquipe2(): ?int
+    public function getHeure(): ?\DateTimeInterface
     {
-        return $this->equipe2;
+        return $this->heure;
     }
 
-    public function setEquipe2(?int $equipe2): static
+    public function setHeure(\DateTimeInterface $heure): static
     {
-        $this->equipe2 = $equipe2;
+        $this->heure = $heure;
 
         return $this;
     }
 
+    public function getEquipe1(): ?Equipe
+    {
+        return $this->Equipe1;
+    }
+
+    public function setEquipe1(?Equipe $Equipe1): static
+    {
+        $this->Equipe1 = $Equipe1;
+
+        return $this;
+    }
+
+    public function getEquipe2(): ?Equipe
+    {
+        return $this->Equipe2;
+    }
+
+    public function setEquipe2(?Equipe $Equipe2): static
+    {
+        $this->Equipe2 = $Equipe2;
+
+        return $this;
+    }
+
+    public function getArbitre(): ?arbitre
+    {
+        return $this->arbitre;
+    }
+
+    public function setArbitre(?arbitre $arbitre): static
+    {
+        $this->arbitre = $arbitre;
+
+        return $this;
+    }
+   
+
+   
 
 }
