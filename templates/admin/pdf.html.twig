@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        /* Define your styles for the PDF here */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+    <center><h1>Users List</h1></center>
+    <table>
+        <thead> <!-- Modification: changer la couleur en vert -->
+            <tr>
+             
+                <th>Email</th>
+                
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Role</th>
+                <th>Adresse</th>
+                <th>Date_de_naissance</th>
+                <th>Verified</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            {% for utilisateur in users %}
+                <tr>
+              
+                     <td>{{ utilisateur.email }}</td>
+            
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.role }}</td>
+                <td>{{ utilisateur.adresse }}</td>
+                <td>{{ utilisateur.dateDeNaissance ? utilisateur.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ utilisateur.Verified ? 'Yes' : 'No' }}</td>
+                     
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10" >No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

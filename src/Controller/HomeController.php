@@ -72,7 +72,7 @@ class HomeController extends AbstractController
     #[Route('/acc2', name: 'app_acc2', methods: ['GET'])]
    public function acc2(Request $request,PostRepository $postrepository): Response
     {
-        return $this->render('home/acc2.html.twig', [
+        return $this->render('home/acc.html.twig', [
             'posts' => $postrepository->findByuserRole("USER"),
         ]);
    

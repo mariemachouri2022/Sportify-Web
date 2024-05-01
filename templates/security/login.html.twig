@@ -510,7 +510,10 @@ form.sign-in-form {
             <input type="submit" value="Login" class="btn solid" />
             
           </form>
-           
+           <div class="col-6">
+                                <div style ="padding-left:310px;" class="forgot-password text-end">
+                                    <a  href="{{ path('app_forgot_password_request') }}">Forgot password?</a>
+                                </div>
         
         </div>
       </div>
@@ -524,7 +527,7 @@ form.sign-in-form {
               Sign up
             </button></a>
           </div>
-          <img src="images/logo.png" class="image" alt="" />
+          <img src="{{asset('front/images/logo.png')}}" class="image" alt="" />
         </div>
         <div class="panel right-panel">
           <div class="content">
@@ -534,7 +537,7 @@ form.sign-in-form {
               Sign in
             </button>
           </div>
-          <img src="images/logo.png" class="image" alt="" />
+          <img src="{{asset('front/images/logo.png')}}" class="image" alt="" />
         </div>
       </div>
     </div>

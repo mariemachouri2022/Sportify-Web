@@ -211,10 +211,13 @@
      position: relative;
 }
  .menu {
-     float: left;
-     width: 100%;
-     min-height: auto;
-     background: #fff;
+    float: left;
+    width: 18%;
+    min-height: auto;
+    background: #fff;
+    position: relative;
+    bottom: 154px;
+    right: 188px;
 }
  .main-menu-section {
      float: right;
@@ -413,7 +416,6 @@
      font-style: italic;
      font-weight: 300;
      font-size: 18px;
-     background: ;
      border: solid #3bd82f 2px;
 }
  .search-bar {

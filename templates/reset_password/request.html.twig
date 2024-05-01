@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif; 
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 250px;
+            height: 40px; 
+            padding: 10px;
+            margin-bottom: 20px; 
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); 
+        }
+
+        button {
+            width: 150px;
+            height: 40px; 
+            margin-bottom: 20px; 
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: #ccc; 
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease; 
+        }
+
+        button:hover {
+            background-color: #999; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{asset('background-sportify.png')}}" alt="Background Image" class="background-image">
+        <a href="{{path('app_login')}}"><button style="    position: relative;
+        bottom: 89px;
+        right: 475px;
+    " >Retour</button></a>
+     {{ form_start(requestForm, {'attr': {'class': 'reset-form'}}) }}
+    {{ form_row(requestForm.email, {
+        'label': false, 
+        'attr': {'class': 'form-control', 'placeholder': 'Enter your email'}
+    }) }}
+    <button id="btnSearch">Chercher</button>
+{{ form_end(requestForm) }}
+
+    </div>
+</body>
+</html>

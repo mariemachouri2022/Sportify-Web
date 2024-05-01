@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdPost</th>
+                <th>IdUser</th>
+                <th>UserRole</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.idPost }}</td>
+                <td>{{ post.idUser }}</td>
+                <td>{{ post.userRole }}</td>
+                <td>{{ post.date ? post.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.heure ? post.heure|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.description }}</td>
+                <td>
+                    <a href="{{ path('app_post_show', {'idPost': post.idPost}) }}">show</a>
+                    <a href="{{ path('app_post_edit', {'idPost': post.idPost}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_new') }}">Create new</a>
+{% endblock %}
