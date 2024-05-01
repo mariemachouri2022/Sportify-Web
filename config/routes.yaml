@@ -1,3 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+# Dans config/routes.yaml
+equipe_index:
+    path: /api/equipe
+    controller: App\Controller\EquipeController::teamsCreatedStatisticsByYear
+    methods: GET
+    requirements:
+        year: '\d+'

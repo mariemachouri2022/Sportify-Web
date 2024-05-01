@@ -41,9 +41,23 @@ class Utilisateur
 
     #[ORM\Column]
     private ?bool $verified=null;
-    
-    #[ORM\ManyToMany(targetEntity: Equipe::class, mappedBy: 'utilisateurs', inversedBy: 'equipes')]
-    private Collection $equipes;
+
+    #[ORM\ManyToOne(targetEntity: Equipe::class, inversedBy: 'utilisateurs')]
+    #[ORM\JoinColumn(name: "IDEquipe", referencedColumnName: "IDEquipe")]
+    private ?Equipe $equipe;
+
+
+
+    public function getEquipe(): ?Equipe
+    {
+        return $this->equipe;
+    }
+
+    public function setEquipe(?Equipe $equipe): self
+    {
+        $this->equipe = $equipe;
+        return $this;
+    }
 
     public function __construct()
     {
@@ -59,6 +73,7 @@ class Utilisateur
     {
         if (!$this->equipes->contains($equipe)) {
             $this->equipes[] = $equipe;
+            $equipe->addUtilisateur($this);
         }
 
         return $this;
@@ -66,9 +81,12 @@ class Utilisateur
 
     public function removeEquipe(Equipe $equipe): self
     {
-        $this->equipes->removeElement($equipe);
+        if ($this->equipes->removeElement($equipe)) {
+            $equipe->removeUtilisateur($this); 
+        }
 
         return $this;
+    
     }
 
     public function getId(): ?int

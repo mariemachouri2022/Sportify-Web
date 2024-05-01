@@ -20,6 +20,24 @@ class EquipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Equipe::class);
     }
+  
+// Dans EquipeRepository
+public function getTeamsCreatedByMonth(int $year): array
+{
+    $entityManager = $this->getEntityManager();
+
+    $query = $entityManager->createQuery(
+        "SELECT COUNT(e.IDEquipe) as teamCount, MONTH(e.createdAt) as month
+        FROM App\Entity\Equipe e
+        WHERE YEAR(e.createdAt) = :year
+        GROUP BY month"
+    )->setParameter('year', $year);
+
+    return $query->getResult();
+}
+
+
+
 
 //    /**
 //     * @return Equipe[] Returns an array of Equipe objects

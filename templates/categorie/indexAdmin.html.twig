@@ -1,0 +1,40 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>Categorie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.IDCateg }}</td>
+                <td>{{ categorie.nom }}</td>
+                <td>{{ categorie.description }}</td>
+                <td><img src="{{ asset(categorie.image) }}" width="150" height="150"/></td>
+               
+                <td>
+                    <a href="{{ path('app_categorie_show_admin', {'IDCateg': categorie.IDCateg}) }}">show</a>
+                    <a href="{{ path('app_categorie_edit_admin', {'IDCateg': categorie.IDCateg}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new_admin') }}">Create new</a>
+{% endblock %}

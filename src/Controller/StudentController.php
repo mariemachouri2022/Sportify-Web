@@ -19,15 +19,27 @@ use App\Entity\Equipe;
 use App\Form\EquipeType;
 use App\Repository\EquipeRepository;
 use App\Controller\EquipeController;
+use App\Entity\Utilisateur;
+use App\Form\UtilisateurType;
+use App\Repository\UtilisateurRepository;
+use App\Controller\QrCodeController;
+use App\Form\SearchType;
+use App\Service\QrCodeService;
+use App\Controller\SearchController;
 
 class StudentController extends AbstractController
 {
- 
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
    
     #[Route('/', name: 'app_index', methods: ['GET'])]
     public function index(StudentRepository $studentRepository): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('acc2.html.twig');
     }
 
     #[Route('/contact', name: 'app_contact', methods: ['GET'])]
@@ -58,7 +70,7 @@ class StudentController extends AbstractController
     {
         return $this->render('acc2.html.twig');
     }
-    #[Route('/categorie', name: 'app_categorie', methods: ['GET'])]
+    #[Route('/categories', name: 'app_categorie', methods: ['GET'])]
     public function categorie(StudentRepository $studentRepository): Response
     {
         return $this->render('categorie.html.twig');
@@ -171,6 +183,13 @@ class StudentController extends AbstractController
         return $this->redirectToRoute('app_student_index', [], Response::HTTP_SEE_OTHER);
     }
     //Categorie *********************
+    #[Route('/categ', name: 'app_categorie_index', methods: ['GET'])]
+    public function indexCategories(CategorieRepository $categorieRepository): Response
+    {
+        return $this->render('categorie/index.html.twig', [
+            'categories' => $categorieRepository->findAll(),
+        ]);
+    }
     #[Route('/categorie/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function newCategorie(Request $request, EntityManagerInterface $entityManager): Response
    {
@@ -182,7 +201,7 @@ class StudentController extends AbstractController
         $entityManager->persist($categorie);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_categorie_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_categorie', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->renderForm('categorie/new.html.twig', [
@@ -228,24 +247,40 @@ class StudentController extends AbstractController
 
     //Equipe *********************
     #[Route('/equipe/new', name: 'app_equipe_new', methods: ['GET', 'POST'])]
-    public function newEquipe(Request $request, EntityManagerInterface $entityManager): Response
+    public function newEquipe(Request $request, EntityManagerInterface $entityManager, UtilisateurRepository $userRepository): Response
     {
+        // Fetch existing users
+        $users = $userRepository->findAll();
+    
+        // Create a new Equipe instance
         $equipe = new Equipe();
-        $form = $this->createForm(EquipeType::class, $equipe);
+    
+        // Create a form with the fetched users as choices
+        $form = $this->createForm(EquipeType::class, $equipe, [
+            'users' => $users,
+        ]);
+    
+        // Handle form submission
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Associate selected users with the equipe
+            foreach ($equipe->getUtilisateurs() as $utilisateur) {
+                $utilisateur->setEquipe($equipe);
+            }
+    
             $entityManager->persist($equipe);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->renderForm('equipe/new.html.twig', [
             'equipe' => $equipe,
             'form' => $form,
         ]);
     }
+    
     #[Route('/equipe/{IDEquipe}', name: 'app_equipe_show', methods: ['GET'])]
     public function showEquipe(Equipe $equipe): Response
     {
@@ -253,23 +288,38 @@ class StudentController extends AbstractController
             'equipe' => $equipe,
         ]);
     }
+
     #[Route('/equipe/{IDEquipe}/edit', name: 'app_equipe_edit', methods: ['GET', 'POST'])]
     public function editEquipe(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
+        // Retrieve existing users
+        $existingUsers = $entityManager->getRepository(Utilisateur::class)->findAll();
+    
         $form = $this->createForm(EquipeType::class, $equipe);
         $form->handleRequest($request);
-
+    
+        // Debugging: Dump submitted form data
+        dump($request->request->all());
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Debugging: Dump updated equipe entity
+            dump($equipe);
+    
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->renderForm('equipe/edit.html.twig', [
             'equipe' => $equipe,
             'form' => $form,
+            'existing_users' => $existingUsers,
         ]);
     }
+    
+
+
+
     #[Route('/equipe/{IDEquipe}', name: 'app_equipe_delete', methods: ['POST'])]
     public function deleteEquipe(Request $request, Equipe $equipe, EntityManagerInterface $entityManager): Response
     {
@@ -280,4 +330,45 @@ class StudentController extends AbstractController
 
         return $this->redirectToRoute('app_equipe_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/qrcode', name: 'qrcode', methods: ['GET'])]
+    public function indexQr(Request $request, QrCodeService $qrcodeService): Response
+    {
+        $qrCode = null;
+        $form = $this->createForm(SearchType::class, null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qrCode = $qrcodeService->qrcode($data['name']);
+        }
+
+        return $this->render('/qrcode.html.twig', [
+            'form' => $form->createView(),
+            'qrCode' => $qrCode
+        ]);
+    }
+    #[Route('/search-student', name: 'search_student')]
+public function searchStudent(Request $request, QRCodeGenerator $qrCodeGenerator): Response
+{
+    $form = $this->createForm(SearchType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData()['name'];
+
+        // Generate QR Code
+        $qrCodeResponse = $qrCodeGenerator->generateQRCode($data);
+
+        // Redirect to Google search with the entered query
+        $googleUrl = sprintf('https://www.google.com/search?q=%s', urlencode($data));
+
+        return $this->redirect($googleUrl);
+    }
+
+    return $this->render('search/index.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
+
 }

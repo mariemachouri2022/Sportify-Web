@@ -6,9 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[Vich\Uploadable]
 class Categorie
 {
     #[ORM\Id]
@@ -18,16 +21,34 @@ class Categorie
 
     #[ORM\Column(length: 150)]
     #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
-    #[Assert\NoSuspiciousCharacters]
     private ?string $nom = null;
 
     #[ORM\Column(length: 65535)]
-    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
+    #[Assert\NotBlank(message: "Le description ne doit pas être vide.")]
     private ?string $description = null;
 
+
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
+    #[Assert\NotBlank(message: "L'image ne doit pas être vide.")]
     private ?string $image = null;
+
+    
+    #[Vich\UploadableField(mapping: 'category_images', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
+    /*
+      @Vich\UploadableField(mapping="category_images", fileNameProperty="image")
+     
+    private ?File $imageFile = null;
+*/
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
 
     public function getIDCateg(): ?int
     {

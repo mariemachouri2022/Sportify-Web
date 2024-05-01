@@ -1,0 +1,39 @@
+{# templates/category/list.html.twig #}
+{% extends 'categorie.html.twig' %}
+
+{# rel links for pagination #}
+{# rel links for pagination #}
+{{ knp_pagination_render(pagination) }}
+
+{# total items count #}
+<div class="count">
+    {{ pagination.getTotalItemCount }}
+</div>
+<table>
+    <tr>
+        {# sorting of properties based on query components #}
+        <th>{{ knp_pagination_sortable(pagination, 'Id', 'c.idcateg') }}</th>
+        <th{% if pagination.isSorted('c.name') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Name', 'c.nom') }}
+        </th>
+        <th{% if pagination.isSorted('c.description') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Description', 'c.description') }}
+        </th>
+    </tr>
+</table>
+
+{# table body #}
+<table>
+    {% for category in pagination %}
+        <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <td>{{ category.idcateg }}</td>
+            <td>{{ category.nom }}</td>
+            <td>{{ category.description }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>

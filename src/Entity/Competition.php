@@ -31,14 +31,21 @@ class Competition
     #[ORM\Column(length:255)]
     private ?string $description=null;
 
-     #[ORM\ManyToOne(inversedBy:'competitions')]   
-    private ?Terrain $terrain=null;
-      
-    #[ORM\ManyToOne(inversedBy:'competitions')]   
-    private ?Equipe $equipe1=null;
 
-    #[ORM\ManyToOne(inversedBy:'competitionss')]   
-    private ?Equipe $equipe2=null;
+    #[ORM\ManyToOne(targetEntity: Terrain::class)]
+    #[ORM\JoinColumn(name: "terrain_id", referencedColumnName: "id")]
+    private ?Terrain $terrain = null;
+
+      
+     #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: "IDEquipe1", referencedColumnName: "IDEquipe")]
+    private ?Equipe $equipe1 = null;
+
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: "IDEquipe2", referencedColumnName: "IDEquipe")]
+    private ?Equipe $equipe2 = null;
+
+
 
     public function getIdCompetition(): ?int
     {

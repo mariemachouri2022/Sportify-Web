@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+        #calendrier{
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="calendrier">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css" rel="stylesheet">
+<script>
+    window.onload = () => {
+        let calendarElt = document.querySelector("#calendrier")
+
+        let calendar = new FullCalendar.Calendar(calendarElt, {
+           initialView: 'dayGridMonth',
+        })
+
+        calendar.render()
+    }
+</script>
+{% endblock %}

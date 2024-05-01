@@ -10,9 +10,7 @@ use App\Form\UtilisateurType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-
+use App\Repository\UtilisateurRepository;
 
 class EquipeType extends AbstractType
 {
@@ -27,23 +25,23 @@ class EquipeType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => 'nom',
             ])
-            ->remove('emails') // Remove the emails field
-            ->add('utilisateurs', CollectionType::class, [
-                'entry_type' => UtilisateurType::class, // Assuming you have a UtilisateurType for rendering each player
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
+            ->add('utilisateurs', EntityType::class, [
+                'class' => Utilisateur::class,
+                'choice_label' => 'nom', // Change 'nom' to the property you want to display for Utilisateur
+                'multiple' => true, // Allow selecting multiple Utilisateur entities
+                'expanded' => true, // Display checkboxes instead of a dropdown
+                'query_builder' => function(UtilisateurRepository $userRepository) {
+                    return $userRepository->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC'); // Optionally, order Utilisateurs by name
+                },
             ]);
-    
-    
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Equipe::class,
-           
+            'users' => [],
         ]);
     }
 }

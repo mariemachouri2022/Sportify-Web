@@ -1,9 +1,15 @@
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
     {{ form_row(form.nom) }}
     {{ form_row(form.niveau) }}
     {{ form_row(form.israndom) }}
     {{ form_row(form.rank) }}
     {{ form_row(form.idcateg) }}
-    {{ form_row(form.utilisateurs) }} {# Update this line to use 'utilisateurs' instead of 'emails' #}
+    {{ form_row(form.utilisateur) }}
     <button type="submit" class="btn btn-primary">Save</button>
 {{ form_end(form) }}
+
+{% endblock %}

@@ -4,7 +4,7 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <!-- Mobile Metas -->
-   <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <!-- Site Metas -->
    <title>Game Info</title>
    <meta name="keywords" content="">
@@ -98,7 +98,8 @@
                                      <ul class="nav navbar-nav">
                                         <li class="active"><a href="index.html">Home</a></li>
                                         <li><a href="profile.html">Profile</a></li>
-                                        <li><a href="team.html">Team</a></li>
+                                        <li><a href="{{path('app_equipe_index')}}">Equipe</a></li>
+                                        <li><a href="{{path('app_categorie')}}">Catégories</a></li>
                                         <li class="dropdown mega-dropdown">
                                            <a href="categorie.html" class="dropdown-toggle" data-toggle="dropdown">Match<span class="caret"></span></a>				
                                            <ul class="dropdown-menu mega-dropdown-menu">
@@ -108,15 +109,15 @@
                                                     <div id="menCollection" class="carousel slide" data-ride="carousel">
                                                        <div class="carousel-inner">
                                                           <div class="item active">
-                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/180358.jpg" alt="#" /></a></div>
                                                           </div>
                                                           <!-- End Item -->
                                                           <div class="item">
-                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/807f757c-tennis-gf8a2b0441_1920-768x513.jpg" alt="#" /></a></div>
                                                           </div>
                                                           <!-- End Item -->
                                                           <div class="item">
-                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                             <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/clubs-foot-europeens-plus-suivis-reseaux-sociaux-min.jpeg" alt="#" /></a></div>
                                                           </div>
                                                           <!-- End Item -->                                
                                                        </div>
@@ -257,17 +258,17 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="card">
-            <img src="images/images.jpeg" alt="Avatar" class="img-responsive">
+            <img src="images/clubs-foot-europeens-plus-suivis-reseaux-sociaux-min.jpeg" alt="Avatar" class="img-responsive">
             <div class="card-body">
-              <h4><b>volleyball</b></h4> 
+              <h4><b>Football</b></h4> 
             </div>
           </div>
           </div>
           <div class="col-sm-4">
             <div class="card">
-            <img src="images/images (1).jpeg" alt="Avatar" class="img-responsive">
+            <img src="images/istockphoto-1371823675-612x612.jpg" alt="Avatar" class="img-responsive">
             <div class="card-body">
-              <h4><b>football</b></h4> 
+              <h4><b>Volleyball</b></h4> 
             </div>
           </div>
           </div>
@@ -276,30 +277,34 @@
         <div class="row">
           <div class="col-sm-4">
             <div class="card">
-            <img src="images/images.png" alt="Avatar" class="img-responsive">
+            <img src="images/sport-le-nouvel-equipement-a-400-euros-qui-arrive-sur-les-pelouses-de-rugby-1451176.jpg" alt="Avatar" class="img-responsive">
             <div class="card-body">
-              <h4><b>tennis</b></h4> 
+              <h4><b>rugby</b></h4> 
             </div>
           </div>
           </div>
           <div class="col-sm-4">
             <div class="card">
-            <img src="images/68170932-petit-garçon-illustration-de-rugby-de-jeu.jpg" alt="Avatar" class="img-responsive" style="height: 246px;">
+            <img src="images/807f757c-tennis-gf8a2b0441_1920-768x513.jpg" alt="Avatar" class="img-responsive" style="height: 246px;">
             <div class="card-body">
-              <h4><b> rugby</b></h4> 
+              <h4><b> Tennis</b></h4> 
             </div>
           </div>
           </div>
           <div class="col-sm-4" style="position: relative;bottom: 180px;">
             <div class="card">
-            <img src="images/206125578-design-plat-d-activité-saine.jpg" alt="Avatar" class="img-responsive">
+            <img src="images/180358.jpg" alt="Avatar" class="img-responsive">
             <div class="card-body">
-              <h4><b>padel</b></h4> 
+              <h4><b>Basketball</b></h4> 
             </div>
           </div>
           </div>
         </div>
       </div>
+      <!-- Pagination -->
+    <div class="navigation">
+        {% block pagination %}{% endblock %}
+    </div>
       <footer id="footer" class="footer">
          <div class="container">
             <div class="row">
