@@ -1,16 +1,14 @@
-{% extends 'admin.html.twig' %}
+{% extends 'acc.html.twig' %}
 
 {% block title %}Competition index{% endblock %}
 
 {% block body %}
-    <h1>Competition index</h1>
-    <a href="{{ path('app_competition_new') }}" class="button new">Create new</a>
+    <h1>Competition TEAMS</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Type</th>
                 <th>Date</th>
                 <th>Heure</th>
                 <th>Description</th>
@@ -22,16 +20,15 @@
         {% for competition in competitions %}
             <tr>
                 <td>{{ competition.nom }}</td>
-                <td>{{ competition.type }}</td>
                 <td>{{ competition.date ? competition.date|date('Y-m-d') : ''  }}</td>
                 <td>{{ competition.heure ? competition.heure|date('H:i:s') : '' }}</td>
                 <td>{{ competition.description }}</td>
                 <td>{{ competition.Terrain.nom }}</td>
                 <td>
-                    <a href="{{ path('app_competition_show', {'idCompetition': competition.idCompetition}) }}">show</a>
-                    <a href="{{ path('app_competition_edit', {'idCompetition': competition.idCompetition}) }}">edit</a>
+                    <a href="{{ path('app_competition_match', {'idCompetition': competition.idCompetition}) }}">REJOINDRE</a>
+                   <!-- <a href="{{ path('app_competition_edit', {'idCompetition': competition.idCompetition}) }}">edit</a>
                     <a href="{{ path('app_score_newAdmin', {'idCompetition': competition.idCompetition}) }}">Score</a>
-
+                            !-->
                 </td>
             </tr>
         {% else %}
@@ -42,11 +39,4 @@
         </tbody>
     </table>
 
-<script>
-const eventSource = new EventSource("{{ mercure('https://example.com/books/1')|escape('js') }}");
-eventSource.onmessage = event => {
-    // Will be called every time an update is published by the server
-    console.log(JSON.parse(event.data));
-}
-</script>
 {% endblock %}

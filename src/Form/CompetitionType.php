@@ -26,8 +26,8 @@ class CompetitionType extends AbstractType
             ->add('nom')
             ->add('type', ChoiceType::class, [
                 'choices' => [
-                    'Team' => 'team',
-                    'Solo' => 'solo',
+                    'TEAM' => 'TEAM',
+                    'SOLO' => 'SOLO',
                 ],
                 'placeholder' => 'Choose type', // Optional placeholder
             ])
@@ -46,16 +46,7 @@ class CompetitionType extends AbstractType
                 'choice_label' => 'nom', // Assuming 'name' is the property you want to display in the dropdown
                 'placeholder' => 'Choose a terrain', // Optional placeholder
             ])
-            ->add('equipe1', EntityType::class, [
-                'class' => Equipe::class,
-                'choice_label' => 'nom', // Assuming 'name' is the property you want to display in the dropdown
-                'placeholder' => 'Choose an equipe', // Optional placeholder
-            ])
-            ->add('equipe2', EntityType::class, [
-                'class' => Equipe::class,
-                'choice_label' => 'nom', // Assuming 'name' is the property you want to display in the dropdown
-                'placeholder' => 'Choose an equipe', // Optional placeholder
-            ]);
+            
         ;
     }
 

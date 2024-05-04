@@ -72,7 +72,44 @@ class ScoreController extends AbstractController
             'score' => $score,
             'form' => $form,
         ]); }
-        
+    }
+    
+    #[Route('/{idCompetition}/newAdmin', name: 'app_score_newAdmin', methods: ['GET', 'POST'])]
+    public function newAdmin(ScoreRepository $scoreRepo ,Request $request, Competition $competition ,EntityManagerInterface $entityManager , ClassementEquipeRepository $classementEquipeRepository): Response
+    { 
+        $existScore = $scoreRepo->findOneBy(['competitionId' => $competition]);
+        if ($existScore !== null) {
+            return $this->redirectToRoute('app_score_editAdmin', ['idscore' => $existScore->getIdscore()]);
+        } else {
+  
+        $score = new Score();
+        $form = $this->createForm(ScoreType::class, $score);
+        $form->handleRequest($request);
+          $score->setCompetitionid($competition ) ; 
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($score->getEquipe1score() > $score->getEquipe2score()) {
+                $score->setWinnerid($competition->getEquipe1());
+                $score->setLoserid($competition->getEquipe2());
+            } elseif ($score->getEquipe1score() < $score->getEquipe2score()) {
+                $score->setWinnerid($competition->getEquipe2());
+                $score->setLoserid($competition->getEquipe1());
+            } else {
+                $score->setWinnerid(null);
+                $score->setLoserid(null);
+            }
+            $this->updateClassement($score->getWinnerId(),$score->getLoserId(),$score->getEquipe1Score() === $score->getEquipe2Score(),$classementEquipeRepository) ; 
+
+            $entityManager->persist($score);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_score_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('score/newAdmin.html.twig', [
+            'competition'=>$competition,
+            'score' => $score,
+            'form' => $form,
+        ]); }
     }
     #[Route('/new', name: 'app_score_neww', methods: ['GET', 'POST'])]
     public function neww(Request $request ,EntityManagerInterface $entityManager): Response
@@ -125,6 +162,35 @@ class ScoreController extends AbstractController
             return $this->redirectToRoute('app_score_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('score/edit.html.twig', [
+            'competition' => $competition,
+            'score' => $score,
+            'form' => $form,
+        ]);
+    } 
+    
+    #[Route('/{idscore}/editAdmin', name: 'app_score_editAdmin', methods: ['GET', 'POST'])]
+    public function editAdmin(Request $request, Score $score, EntityManagerInterface $entityManager,ClassementEquipeRepository $classementEquipeRepository): Response
+    {
+        $form = $this->createForm(ScoreType::class, $score);
+        $form->handleRequest($request);
+         $competition=$score->getCompetitionid() ; 
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($score->getEquipe1score() > $score->getEquipe2score()) {
+                $score->setWinnerid($competition->getEquipe1());
+                $score->setLoserid($competition->getEquipe2());
+            } elseif ($score->getEquipe1score() < $score->getEquipe2score()) {
+                $score->setWinnerid($competition->getEquipe2());
+                $score->setLoserid($competition->getEquipe1());
+            } else {
+                $score->setWinnerid(null);
+                $score->setLoserid(null);
+            }
+            $this->updateClassement($score->getWinnerId(),$score->getLoserId(),$score->getEquipe1Score() === $score->getEquipe2Score(),$classementEquipeRepository) ; 
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_score_index', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('score/editAdmin.html.twig', [
             'competition' => $competition,
             'score' => $score,
             'form' => $form,

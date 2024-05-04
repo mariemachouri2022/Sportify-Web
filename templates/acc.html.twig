@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
    <!-- Basic -->
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,25 +14,32 @@
    <!-- Site Icons -->
    <link rel="shortcut icon" href="\images\logo-SPORTIFY-icon.ico" type="image/x-icon" />
    <link rel="apple-touch-icon" href="">
-   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="css/bootstrap.min.css">
-   <!-- Site CSS -->
-   <link rel="stylesheet" href="style.css">
-   <!-- Colors CSS -->
-   <link rel="stylesheet" href="css/colors.css">
-   <!-- ALL VERSION CSS -->	
-   <link rel="stylesheet" href="css/versions.css">
-   <!-- Responsive CSS -->
-   <link rel="stylesheet" href="css/responsive.css">
-   <!-- Custom CSS -->
-   <link rel="stylesheet" href="css/custom.css">
-   <!-- font family -->
-   <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-   <!-- end font family -->
-   <link rel="stylesheet" href="css/3dslider.css" />
-   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-   <script src="js/3dslider.js"></script>
+   {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/colors.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/versions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/3dslider.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" >
+    <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css"  type="text/css">  
+   {% endblock %}
+
+
+   {% block javascripts %}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/utils/Draggable.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('js/3dslider.js') }}"></script>
+        <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}
    </head>
    <style>
    
@@ -76,11 +84,44 @@
     .post-form button:hover {
         background-color: #145993;
     }
+
+/* Style for submenu items under "Competition" */
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu {
+    border-color: #1f1f1f !important; /* Ensure specificity */
+    color: #1f1f1f !important;
+    background-color: #ffffff !important;
+    border: 1px solid #ccc !important; /* Border */
+    border-radius: 5px; /* Border radius */
+    padding: 10px; /* Padding */
+    min-width: 220px; /* Minimum width */
+    max-height: 130px; /* Limit the height */
+    overflow-y: auto; /* Add scrollbar if content exceeds max height */
+}
+
+/* Style for individual submenu items */
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu li a {
+    padding: 5px 10px; /* Padding */
+    color: #1f1f1f !important; /* Text color */
+}
+
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu li  {
+    padding: 5px 10px; /* Padding */
+    
+}
+
+/* Hover effect for submenu items */
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu a:hover {
+    background-color: #1f1f1f !important; /* Background color on hover */
+    color: #33FF42 !important; /* Background color on hover */
+}
+
+
+    
 </style>
    <body class="game_info" data-spy="scroll" data-target=".header">
       <!-- LOADER -->
       <div id="preloader">
-         <img class="preloader" src="images/loading-img.gif" alt="">
+         <img class="preloader" src="{{ asset('images/loading-img.gif') }}" alt="">
       </div>
       <!-- END LOADER -->
       <section id="top">
@@ -91,7 +132,7 @@
                      <div class="col-md-6">
                         <div class="full">
                            <div class="logo" >
-                              <a href="index.html"><img src="images/logo.png" alt="#" style="    width: 157px;"/></a>
+                              <a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="#" style="    width: 157px;"/></a>
                            </div>
                         </div>
                      </div>
@@ -120,9 +161,9 @@
                                     </div>
                                     <div class="collapse navbar-collapse js-navbar-collapse">
                                        <ul class="nav navbar-nav">
-                                          <li class="active"><a href="index.html">Home</a></li>
-                                          <li><a href="team.html">Equipement</a></li>
-                                          <li><a href="categorie.html">categorie</a></li>
+                                          <li class="active"><a href="/acc">Home</a></li>
+                                          <li><a href="/team.html">Equipement</a></li>
+                                          <li><a href="/categorie.html">categorie</a></li>
 
                                           <li class="dropdown mega-dropdown">
                                              <a href="categorie.html" class="dropdown-toggle" data-toggle="dropdown">Match<span class="caret"></span></a>				
@@ -133,15 +174,15 @@
                                                       <div id="menCollection" class="carousel slide" data-ride="carousel">
                                                          <div class="carousel-inner">
                                                             <div class="item active">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="{{ asset('images/match-banner1.jpg') }}" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->
                                                             <div class="item">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="{{ asset('images/match-banner1.jpg') }}" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->
                                                             <div class="item">
-                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="images/match-banner1.jpg" alt="#" /></a></div>
+                                                               <div class="banner-for-match"><a href="#"><img class="img-responsive" src="{{ asset('images/match-banner1.jpg') }}" alt="#" /></a></div>
                                                             </div>
                                                             <!-- End Item -->                                
                                                          </div>
@@ -174,8 +215,20 @@
                                                 </li>
                                              </ul>
                                           </li>
-                                          <li><a href="res.html">Reservation</a></li>
-                                          <li><a href="equip.html"> Competition et Score</a></li>
+                                          <li><a href="/res.html">Reservation</a></li>
+                                   
+                                          <li><a href="/classement"> Classement </a></li>
+
+
+                                             
+
+                                  <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competition <i class="fa fa-caret-down"></i></a>
+                                    <ul class="dropdown-menu competition-submenu">
+                                    <li><a href="/competition/Teams"> COMPETITION TEAMS</a></li>
+                                    <li><a href="/competition/Solo"> COMPETITION SOLO</a></li>
+                                    </ul>
+                                  </li>
 
 
                                           <li><a href="contact.html">contact</a></li>
@@ -221,7 +274,7 @@
                         </div>
                      </div>
                   </div>
-*                  <div class="item skyblue" data-ride="carousel" data-interval="5000">
+            <div class="item skyblue" data-ride="carousel" data-interval="5000">
                      <div class="carousel-caption">
                         <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12"></div>
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
@@ -284,12 +337,12 @@
                         <div class="team-btw-match">
                            <ul>
                               <li>
-                                 <img src="images/t1.png" alt="" style="   width: 90px; ">
+                                 <img src="{{ asset('images/t1.png') }}" alt="" style="   width: 90px; ">
                                  <span>Footbal Team</span>
                               </li>
                               <li class="vs"><span>vs</span></li>
                               <li>
-                                 <img src="images/t.png" alt=""  style="    width: 75px; ">
+                                 <img src="{{ asset('images/t.png') }}" alt=""  style="    width: 75px; ">
                                  <span>Super Team Club</span>
                               </li>
                            </ul>
@@ -316,13 +369,19 @@
             </div>
          </div>
       </div>
+
+         <section>
+            <div class="main-heading sytle-2">
+                           {% block body %}{% endblock %}           
+            </div>  
+         </section>
       <section id="contant" class="contant">
          <div class="container">
             <div class="row">
                <div class="col-lg-4 col-sm-4 col-xs-12">
                   <aside id="sidebar" class="left-bar">
                      <div class="banner-sidebar">
-                        <img class="img-responsive" src="images/7.jpg" alt="#" />
+                        <img class="img-responsive" src="{{ asset('images/7.jpg') }}" alt="#" />
                      </div>
                   </aside>
                   <h4>Match Fixture</h4>
@@ -331,23 +390,23 @@
                         <div class="team-btw-match">
                            <ul>
                               <li>
-                                 <img src="images/t1.png" alt=""  style="    width: 75px; ">
+                                 <img src="{{ asset('images/t1.png') }}" alt=""  style="    width: 75px; ">
                                  <span>sfax</span>
                               </li>
                               <li class="vs"><span>vs</span></li>
                               <li>
-                                 <img src="images/t.png" alt="" style="    width: 75px; ">
+                                 <img src="{{ asset('images/t.png') }}" alt="" style="    width: 75px; ">
                                  <span>Taraji</span>
                               </li>
                            </ul>
                            <ul>
                             <li>
-                               <img src="images/t1.png" alt=""  style="    width: 75px; ">
+                               <img src="{{ asset('images/t1.png') }}" alt=""  style="    width: 75px; ">
                                <span>sfax</span>
                             </li>
                             <li class="vs"><span>vs</span></li>
                             <li>
-                               <img src="images/t.png" alt=""  style="    width: 75px; ">
+                               <img src="{{ asset('images/t.png') }}" alt=""  style="    width: 75px; ">
                                <span>Taraji</span>
                             </li>
                          </ul>
@@ -379,7 +438,7 @@
                     </div>
                      </div>
                      <div class="news-post-widget">
-                        <img class="img-responsive" src="images/4.jpeg" alt="">
+                        <img class="img-responsive" src="{{ asset('images/4.jpeg') }}" alt="">
                         <div class="news-post-detail">
                            <span class="date">20 march 2016</span>
                            <h2><a href="blog-detail.html">At vero eos et accusamus et iusto odio dignissimos ducimus</a></h2>
@@ -411,7 +470,7 @@
                <div class="col-md-12">
                   <div class="full">
                      <div class="match_vedio">
-                        <img class="img-responsive" src="images/img-07.jpg" alt="#" />
+                        <img class="img-responsive" src="{{ asset('images/img-07.jpg') }}" alt="#" />
                      </div>
                   </div>
                </div>
@@ -430,7 +489,7 @@
                ">
                   <div class="col-md-3">
                      <div class="team-column style-2">
-                        <img src="images/2.jpg" alt="" style="    WIDTH: 327px;     height: 326px;
+                        <img src="{{ asset('images/2.jpg') }}" alt="" style="    WIDTH: 327px;     height: 326px;
                         ">
                         <div class="player-name">
                            <div class="desination-2">Defender</div>
@@ -451,7 +510,7 @@
                   </div>
                   <div class="col-md-3">
                      <div class="team-column style-2">
-                        <img src="images/1.jpg" alt="" style="    WIDTH: 327px;">
+                        <img src="{{ asset('images/1.jpg') }}" alt="" style="    WIDTH: 327px;">
                         <div class="player-name">
                            <div class="desination-2">Defender</div>
                            <h5>Wael Marouani</h5>
@@ -461,7 +520,7 @@
                   </div>
                   <div class="col-md-3">
                      <div class="team-column style-2">
-                        <img src="images/3.jpg" alt="" style="    WIDTH: 327px;">
+                        <img src="{{ asset('images/3.jpg') }}" alt="" style="    WIDTH: 327px;">
                         <div class="player-name">
                            <div class="desination-2">Defender</div>
                            <h5>Wassim Chamakh</h5>
@@ -481,7 +540,7 @@
                   <div class="full">
                      <div class="footer-widget">
                         <div class="footer-logo">
-                           <a href="#"><img src="images/logo.png" alt="#" /></a>
+                           <a href="#"><img src="{{ asset('images/logo.png') }}" alt="#" /></a>
                         </div>
                         <p>Welcome to Sportify.</p>
                         <ul class="social-icons style-4 pull-left">
@@ -534,9 +593,6 @@
          </div>
       </footer>
       <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
-      <!-- ALL JS FILES -->
-      <script src="js/all.js"></script>
-      <!-- ALL PLUGINS -->
-      <script src="js/custom.js"></script>
+      
    </body>
 </html>

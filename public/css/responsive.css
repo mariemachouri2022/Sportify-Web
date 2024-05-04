@@ -361,4 +361,26 @@
          float: left;
          border: 0 solid #ededed;
     }
+
+
+}
+
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu {
+    border-color: #1f1f1f;
+         color: #fff !important;
+         background-color: #ffffff !important;
+    border: 1px solid #ccc; /* Border */
+    border-radius: 5px; /* Border radius */
+    padding: 10px; /* Padding */
+    min-width: 200px; /* Minimum width */
+}
+
+/* Style for individual submenu items */
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu li {
+    padding: 5px 10px; /* Padding */
+}
+
+/* Hover effect for submenu items */
+.navbar-nav > li.dropdown > .dropdown-menu.competition-submenu li:hover {
+    background-color: #33FF42; /* Background color on hover */
 }

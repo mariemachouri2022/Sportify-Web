@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'acc2.html.twig' %}
 
 {% block title %}New Score
 {% endblock %}
@@ -231,7 +231,7 @@
 	</style>
 {% endblock %}
 {% block body %}
-	<h1>Create new Score</h1>
+	<h1>Score {{ competition.nom}}</h1>
 
 	
     
@@ -249,7 +249,7 @@
 						<div class="team-logo">
 							<img src="\images\logo-SPORTIFY-icon.ico"/>
 						</div>
-						<h2 class="team-name">{{ competition.equipe1.nom }}</h2>
+						<h1 class="team-name">{{ competition.equipe1.nom }}</h1>
 					</div>
 				</div>
 				<div class="column">
@@ -289,7 +289,7 @@
 						<div class="team-logo">
 							<img src="\images\logo-SPORTIFY-icon.ico"/>
 						</div>
-						<h2 class="team-name">{{ competition.equipe2.nom }}</h2>
+						<h1 class="team-name">{{ competition.equipe2.nom }}</h1>
 					</div>
 				</div>
 			</div>

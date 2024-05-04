@@ -1,16 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'acc.html.twig' %}
 
 {% block title %}Classementequipe{% endblock %}
 
 {% block body %}
-    <h1>Classementequipe</h1>
+    <h1>Classement Detail {{ classementequipe.equipeId.nom }}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ classementequipe.id }}</td>
-            </tr>
+         
             <tr>
                 <th>Points</th>
                 <td>{{ classementequipe.points }}</td>
@@ -20,19 +17,19 @@
                 <td>{{ classementequipe.rank }}</td>
             </tr>
             <tr>
-                <th>NbreDeMatch</th>
+                <th>Nombre De Match</th>
                 <td>{{ classementequipe.nbreDeMatch }}</td>
             </tr>
             <tr>
-                <th>Win</th>
+                <th>Nombre De Win</th>
                 <td>{{ classementequipe.win }}</td>
             </tr>
             <tr>
-                <th>Draw</th>
+                <th>Nombre de Draw</th>
                 <td>{{ classementequipe.draw }}</td>
             </tr>
             <tr>
-                <th>Loss</th>
+                <th>Nombre de Loss</th>
                 <td>{{ classementequipe.loss }}</td>
             </tr>
         </tbody>

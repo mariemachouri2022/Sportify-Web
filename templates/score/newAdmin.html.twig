@@ -1,4 +1,4 @@
-{% extends 'acc2.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}New Score
 {% endblock %}
@@ -231,14 +231,13 @@
 	</style>
 {% endblock %}
 {% block body %}
-	<h1>Score {{ competition.nom}}</h1>
+	<h1>  Score {{ competition.nom}}</h1>
 
 	
     
     
 	<div
 		class="containerr">
-		<!-- code here -->
 		<div class="match">
 			<div class="match-header">
 				<div class="match-status" id="match-status">Live</div>
@@ -295,20 +294,17 @@
 				</div>
 			</div>
 		</div>
-
-
 	</div>
 
 	<script>
-        // JavaScript code to update the match time elapsed dynamically
         var matchStartTime = new Date('{{ competition.date|date("Y-m-d") }} {{ competition.heure|date("H:i:s") }}');
-        var matchDuration = 90; // Duration in minutes
+        var matchDuration = 90; 
         var matchTimeElapsedElement = document.getElementById('match-time-lapsed');
         var matchstatus = document.getElementById('match-status');
 
         function updateMatchTimeElapsed() {
             var currentTime = new Date();
-            var elapsedTime = Math.floor((currentTime - matchStartTime) / 1000 / 60); // Elapsed time in minutes
+            var elapsedTime = Math.floor((currentTime - matchStartTime) / 1000 / 60); 
             var timeLeft = matchDuration - elapsedTime;
             if (timeLeft <= 0) {
                 matchTimeElapsedElement.textContent = 'Finished';
@@ -329,14 +325,13 @@
             form.addEventListener('submit', function (event) {
                 if ((parseInt(equipe1scoreInput.value) < 0) || (parseInt(equipe2scoreInput.value) < 0)) {
                    var alertMessage = 'Scores cannot be negative.';
-            // Show the modified alert message
             alert(alertMessage);
-                    event.preventDefault(); // Prevent form submission
+                    event.preventDefault(); 
                 }
             });
         });
     </script>
 
-    		    <a href="{{ path('app_competitonall_index') }}">back to competition list</a>
+			    <a href="{{ path('app_competition_index') }}">back to competition list</a>
 
 {% endblock %}

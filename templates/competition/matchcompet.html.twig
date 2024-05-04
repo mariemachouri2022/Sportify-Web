@@ -1,0 +1,502 @@
+{% extends 'acc.html.twig' %}
+
+{% block title %}MATCH COMPETITION{% endblock %}
+
+
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+
+.text-danger {
+	 color: #ff3d3d;
+}
+ .label {
+	 font-size: 9px;
+	 text-transform: uppercase;
+	 color: #6e6e6e;
+	 font-weight: 700;
+	 letter-spacing: 0.095em;
+	 margin-bottom: 4px;
+}
+ .mb-05 {
+	 margin-bottom: 4px;
+}
+ .mb-0 {
+	 margin-bottom: 0 !important;
+}
+ .mb-1 {
+	 margin-bottom: 8px;
+}
+ .mt-1 {
+	 margin-top: 8px;
+}
+ .mt-2 {
+	 margin-top: 16px;
+}
+ .ml-1 {
+	 margin-left: 8px;
+}
+ .ml-2 {
+	 margin-left: 16px;
+}
+ .ml-3 {
+	 margin-left: 24px;
+}
+ .ml-4 {
+	 margin-left: 32px;
+}
+ .ml-5 {
+	 margin-left: 40px;
+}
+ .mr-1 {
+	 margin-right: 8px;
+}
+ .mr-2 {
+	 margin-right: 16px;
+}
+ .mr-3 {
+	 margin-right: 24px;
+}
+ .mr-4 {
+	 margin-right: 32px;
+}
+ .mr-5 {
+	 margin-right: 40px;
+}
+
+
+ .scoreboard {
+	 background: #0f0f0f;
+	 margin-bottom: 8px;
+	 border-radius: 4px;
+}
+ .scoreboard__container {
+	 padding: 16px;
+}
+ .scoreboard__result {
+	 text-align: center;
+	 display: flex;
+	 align-items: center;
+	 justify-content: center;
+}
+ .scoreboard .scoreboard__result-home, .scoreboard .scoreboard__result-away, .scoreboard .scoreboard__result-separator {
+	 font-size: 26px;
+}
+ .scoreboard .scoreboard__result-separator {
+	 margin: 0 8px;
+	 color: #6e6e6e;
+}
+ .scoreboard__badge {
+	 width: 38px;
+	 height: 38px;
+}
+ .scoreboard__badge img {
+	 height: 100%;
+}
+ .scoreboard__teams {
+	 display: flex;
+	 justify-content: center;
+}
+ .scoreboard__team {
+	 display: flex;
+	 align-items: center;
+	 justify-content: flex-start;
+	 flex-grow: 1;
+}
+ .scoreboard__team--align-right {
+	 flex-direction: row-reverse;
+}
+ .scoreboard__team--align-right .scoreboard__name {
+	 text-align: right;
+}
+ .scoreboard__team--align-left .scoreboard__name {
+	 text-align: left;
+}
+ .scoreboard__name {
+	 display: block;
+	 width: 100px;
+}
+ .scoreboard__nav {
+	 border-top: 1px solid #212121;
+	 display: flex;
+	 align-items: center;
+	 justify-content: space-around;
+	 padding: 0 16px;
+	 margin: 0;
+}
+ .scoreboard__nav-el {
+	 list-style: none;
+}
+ .scoreboard__nav-el.is-active a {
+	 color: #29bdde;
+	 position: relative;
+}
+ .scoreboard__nav-el.is-active a:after {
+	 display: block;
+	 height: 2px;
+	 width: 100%;
+	 content: "";
+	 background: #29bdde;
+	 border-top-left-radius: 2px;
+	 border-top-right-radius: 2px;
+	 position: absolute;
+	 bottom: 0;
+	 left: 0;
+}
+ .scoreboard__nav-el a {
+	 padding: 20px 16px;
+	 color: #6e6e6e;
+	 text-decoration: none;
+	 display: block;
+	 line-height: 0;
+}
+ .scoreboard__basics {
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: center;
+	 align-items: center;
+}
+ .player {
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 position: relative;
+	 padding-bottom: 14px;
+	 margin: 0 28px;
+}
+ .player--home .player__number {
+	 background: #be2c2c;
+}
+ .player--away .player__number {
+	 background: #31a49b;
+}
+ .player__number {
+	 width: 32px;
+	 height: 32px;
+	 border-radius: 100%;
+	 margin-bottom: 2.6666666667px;
+	 align-items: center;
+	 justify-content: center;
+	 display: flex;
+}
+ .player__name {
+	 font-size: 10px;
+	 font-size: 10px;
+	 position: absolute;
+	 bottom: 0;
+	 white-space: nowrap;
+	 bottom: 0;
+}
+ .formation {
+	 position: absolute;
+	 z-index: 2;
+	 width: 100%;
+	 height: 100%;
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: space-between;
+}
+ .formation--home .player__number {
+	 background: #be2c2c;
+}
+ .formation--away {
+	 transform: rotate(180deg);
+}
+ .formation--away .player__number {
+	 background: #31a49b;
+}
+ .formation__line {
+	 display: flex;
+	 padding: 0 24px;
+	 margin-bottom: 8px;
+	 justify-content: center;
+}
+ .player {
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 position: relative;
+	 padding-bottom: 14px;
+	 margin: 0 28px;
+}
+ .player__number {
+	 width: 32px;
+	 height: 32px;
+	 border-radius: 100%;
+	 margin-bottom: 2.6666666667px;
+	 align-items: center;
+	 justify-content: center;
+	 display: flex;
+}
+ .player__name {
+	 font-size: 10px;
+	 font-size: 10px;
+	 position: absolute;
+	 bottom: 0;
+	 white-space: nowrap;
+	 bottom: 0;
+}
+ .field {
+	 border-radius: 4px;
+	 background: #29502c;
+	 padding: 8px;
+}
+ .field__center-line {
+	 width: 100%;
+	 height: 2px;
+	 background: #507450;
+	 position: absolute;
+	 top: 0;
+	 bottom: 0;
+	 margin: auto;
+}
+ .field__center-line:after {
+	 width: 60px;
+	 height: 60px;
+	 border: 2px solid #507450;
+	 content: "";
+	 display: block;
+	 position: absolute;
+	 right: 0;
+	 left: 0;
+	 top: 0;
+	 bottom: 0;
+	 margin: auto;
+	 border-radius: 100%;
+}
+ .field__center-line:before {
+	 width: 8px;
+	 height: 8px;
+	 background: #507450;
+	 content: "";
+	 display: block;
+	 position: absolute;
+	 right: 0;
+	 left: 0;
+	 top: 0;
+	 bottom: 0;
+	 margin: auto;
+	 border-radius: 100%;
+}
+ .field__container {
+	 border-radius: 2px;
+	 border: 2px solid #507450;
+	 position: relative;
+}
+ .field__half {
+	 position: relative;
+	 height: 290px;
+	 overflow: hidden;
+}
+ .field__half--reverse {
+	 transform: rotate(180deg);
+}
+ .field .penalty-box {
+	 border: 2px solid #507450;
+	 width: 35%;
+	 height: 50px;
+	 position: absolute;
+	 top: -2px;
+	 margin: auto;
+	 right: 0;
+	 left: 0;
+}
+ .field .penalty-box__container {
+	 position: relative;
+	 height: 100%;
+	 background: #29502c;
+	 z-index: 1;
+}
+ .field .penalty-box:after {
+	 width: 40px;
+	 height: 40px;
+	 border-radius: 100%;
+	 border: 2px solid #507450;
+	 position: absolute;
+	 bottom: -20px;
+	 right: 0;
+	 left: 0;
+	 margin: auto;
+	 content: "";
+	 display: block;
+}
+ .field .penalty-box__infield {
+	 border: 2px solid #507450;
+	 width: 35%;
+	 height: 38%;
+	 position: absolute;
+	 top: -2px;
+	 margin: auto;
+	 right: 0;
+	 left: 0;
+}
+ .field__corner {
+	 border-radius: 100%;
+	 height: 20px;
+	 width: 20px;
+	 position: absolute;
+	 top: -10px;
+	 border: 2px solid #507450;
+}
+ .field__corner--left {
+	 left: -10px;
+}
+ .field__corner--right {
+	 right: -10px;
+}
+
+ </style>
+{% endblock %}
+
+
+{% block body %}
+<div class="scoreboard">
+  <div class="scoreboard__container">
+    <div class="scoreboard__basics mb-05">
+      <span class="label">
+        Second half
+      </span>
+      <span class="text-danger">
+        {{ competition.heure ? competition.heure|date('H:i') : '' }}  // {{ competition.date ? competition.date|date('Y-m-d') : '' }}    
+      </span>
+    </div>
+    <div class="scoreboard__teams">
+      <div class="scoreboard__team scoreboard__team--align-right mr-2">
+        <div class="scoreboard__badge ml-1">
+          <img src="\images\logo-SPORTIFY-icon.ico" alt="logo"/>
+        </div>
+        <span class="scoreboard__name">{{ competition.equipe1.nom}}</span>
+      </div>
+      <div class="scoreboard__result">
+        <span class="scoreboard__result-separator"> VS </span>
+      </div>
+      <div class="scoreboard__team scoreboard__team--align-left ml-2">
+        <div class="scoreboard__badge mr-1">
+          <img src="\images\logo-SPORTIFY-icon.ico" alt="logo" />
+        </div>
+        <span class="scoreboard__name">{{ competition.equipe2.nom}}</span>
+      </div>
+    </div>
+  </div>
+
+    <ul class="scoreboard__nav">
+        <li class="scoreboard__nav-el "><a href="#PAYMENT">PAYMENT</a></li>
+        <li class="scoreboard__nav-el is-active "><a href="#Line-up">Line-up</a></li>
+        <li class="scoreboard__nav-el "><a href="#terrain">Terrain</a></li>
+        <li class="scoreboard__nav-el "><a href="#Weather">Weather</a></li>
+    </ul>
+
+   
+
+    <div id="PAYMENT" class="tab-pane hidden">
+		  {% include 'metier/stripe.html.twig' with {'stripe_key': stripe_key, 'competition': competition} %}
+		  </div>
+
+    <div id="Line-up" class="tab-pane">
+	    {% include 'competition/_lineup.html.twig' %}
+	</div>
+    
+
+    <div id="terrain" class="tab-pane hidden">
+    {% include 'metier/maps.html.twig' with {'competition': competition} %}
+  </div>
+
+    <div id="Weather" class="tab-pane hidden">
+    {% include 'Weather/weather.html.twig' with {'competition': competition} %}
+
+
+    </div>
+</div>
+
+
+
+<script>
+
+
+ document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll('.scoreboard__nav-el a');
+
+    // Function to handle click on navigation links
+    function handleNavClick(event) {
+        event.preventDefault();
+
+        // Remove 'is-active' class from all links
+        navLinks.forEach(link => {
+            link.parentElement.classList.remove('is-active');
+        });
+
+        // Add 'is-active' class to the clicked link's parent element
+        event.target.parentElement.classList.add('is-active');
+
+        // Hide all sections
+        const sections = document.querySelectorAll('.tab-pane');
+        sections.forEach(section => {
+            section.classList.add('hidden');
+        });
+
+        // Get the target section's ID from the href attribute
+        const targetId = event.target.getAttribute('href').substring(1);
+
+        // Show the target section
+        document.getElementById(targetId).classList.remove('hidden');
+    }
+
+    // Attach click event listener to navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', handleNavClick);
+    });
+
+    // Trigger click event on LINE-UP tab by default
+    document.getElementById('Line-up').click();
+
+    // Add event listener to rejoindre buttons
+    const rejoindreButtons = document.querySelectorAll('.rejoindre-button');
+    rejoindreButtons.forEach(button => {
+        button.addEventListener('click', rejoindreEquipe);
+    });
+
+    // Function to handle joining equipe
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to handle joining equipe
+    function rejoindreEquipe(event) {
+        event.preventDefault();
+
+        // Get the button element
+        const button = event.target;
+
+        // Get the equipe ID and competition ID from data attributes
+        const equipeId = button.dataset.equipe;
+        const competitionId = button.dataset.competition;
+        const date = button.dataset.competition.date;
+          
+        // Make a POST request using fetch API
+        fetch(`/competition/join-team/${equipeId}/${competitionId}`, {
+            method: 'POST',
+			body: JSON.stringify({ date }), // Include competition date in the request body
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the lineup section with the new HTML
+            const lineupSection = document.getElementById('Line-up');
+            lineupSection.innerHTML = data.lineupHtml;
+        })
+        .catch(error => {
+            console.error('Error joining equipe:', error);
+        });
+    }
+
+    // Add event listener to rejoindre buttons
+    const rejoindreButtons = document.querySelectorAll('.rejoindre-button');
+    rejoindreButtons.forEach(button => {
+        button.addEventListener('click', rejoindreEquipe);
+    });
+});
+</script>
+
+{% endblock %}

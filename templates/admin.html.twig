@@ -22,25 +22,31 @@
    <!-- Colors CSS -->
    <link rel="stylesheet" href="{{ asset('css/colors.css') }}">
    <!-- ALL VERSION CSS -->	
-   <link rel="stylesheet" href="{{ asset('css/versions.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/versions.css') }}">
    <!-- Responsive CSS -->
    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
    <!-- Custom CSS -->
    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
    <!-- font family -->
    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
    <!-- end font family -->
    <link rel="stylesheet" href="{{ asset('css/3dslider.css') }}" />
-   <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css" type="text/css">
+   <link rel="stylesheet" href="https://www.jqueryscript.net/css/jquerysctipttop.css" type="text/css">
    {% endblock %}
 
    {% block javascripts %}
+       <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
    <!-- ALL JS FILES -->
-      <script src="{{ asset('js/all.js') }}"></script>
-      <!-- ALL PLUGINS -->
-      <script src="{{ asset('js/custom.js') }}"></script>
-   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+   <script src="{{ asset('js/all.js') }}"></script>
+   <!-- ALL PLUGINS -->
+   <script src="{{ asset('js/custom.js') }}"></script>
    <script src="{{ asset('js/3dslider.js') }}"></script>
+   <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
    {% endblock %}
 
    </head>
@@ -176,7 +182,7 @@
                                     </div>
                                     <div class="collapse navbar-collapse js-navbar-collapse">
                                        <ul class="nav navbar-nav">
-                                          <li class="active"><a href="index">Home</a></li>
+                                          <li class="active"><a href="/admin">Home</a></li>
                                           <li><a href="/admin">Gestion user</a></li>
                                           <li><a href="/competition/">Competition</a></li>
                                           <li><a href="/admin">Gestion Reservation </a></li>
@@ -273,38 +279,6 @@
             </div>
          </div>
       </section>
-      <table>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Mot de passe</th>
-            <th>Email</th>
-            <th>Image</th>
-            <th>Adresse</th>
-            <th>Date de Naissance</th>
-            <th>Rôle</th>
-            <th>Verified</th>
-            <th>Actions</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>John</td>
-            <td>*******</td>
-            <td>john@example.com</td>
-            <td><img src="profile.jpg" alt="Profile Picture" style="width: 50px; height: 50px;"></td>
-            <td>123 Street, City</td>
-            <td>1990-01-01</td>
-            <td>User</td>
-            <td>Yes</td>
-            <td>
-                <button class="button edit">Edit</button>
-                <button class="button delete">Delete</button>
-            </td>
-        </tr>
-        <!-- Add more rows for additional users -->
-    </table>
 
                                {% block body %}{% endblock %}
 
