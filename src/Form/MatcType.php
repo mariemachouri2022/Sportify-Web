@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Arbitre;
 use App\Entity\Equipe;
 use App\Entity\Matc;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -112,6 +114,44 @@ $dateDans15Jours = (new \DateTime())->modify('+15 days');
             'constraints' => [
                 new NotBlank(),
             ],
+        ])
+        ->add('captcha', Recaptcha3Type::class, [
+            'constraints' => new Recaptcha3(),
+            'action_name' => 'homepage',
+            
+        ])
+        ->add('selectedCity', ChoiceType::class, [
+            'choices' => [
+                // Liste des 24 gouvernorats de Tunis
+                'Ariana' => 'Ariana',
+                'Beja' => 'Beja',
+                'Ben Arous' => 'Ben Arous',
+                'Bizerte' => 'Bizerte',
+                'Gabes' => 'Gabes',
+                'Gafsa' => 'Gafsa',
+                'Jendouba' => 'Jendouba',
+                'Kairouan' => 'Kairouan',
+                'Kasserine' => 'Kasserine',
+                'Kebili' => 'Kebili',
+                'Kef' => 'Kef',
+                'Mahdia' => 'Mahdia',
+                'Manouba' => 'Manouba',
+                'Medenine' => 'Medenine',
+                'Monastir' => 'Monastir',
+                'Nabeul' => 'Nabeul',
+                'Sfax' => 'Sfax',
+                'Sidi Bouzid' => 'Sidi Bouzid',
+                'Siliana' => 'Siliana',
+                'Sousse' => 'Sousse',
+                'Tataouine' => 'Tataouine',
+                'Tozeur' => 'Tozeur',
+                'Tunis' => 'Tunis',
+                'Zaghouan' => 'Zaghouan',
+            ],
+            'placeholder' => 'Sélectionnez une ville',
+            'required' => true,
+            'mapped' => false,
+
         ]);
     }
 

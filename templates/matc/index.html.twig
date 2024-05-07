@@ -70,7 +70,9 @@
 </style>
 
 <h1>Matches disponibles</h1>
-
+<div class="container button-container">
+    <a href="{{ path('app_matc_index', {'orderBy': 'date'}) }}" class="btn btn-primary btn-details">Tri </a>
+</div>
 <div class="card-container">
     {% for matc in matcs %}
     <div class="card">
@@ -94,6 +96,12 @@
     </div>
     {% endfor %}
 </div>
+<div class="navigation flex justify-center mb-8">
+    {{ knp_pagination_render(matcs) }}
+</div>
 
-<a href="{{ path('app_matc_new') }}" class="btn btn-success">Create new</a>
+<!-- Centrez le bouton "Create new" -->
+<div class="text-center">
+    <a href="{{ path('app_matc_new') }}" class="btn btn-success">Create new</a>
+</div>
 {% endblock %}

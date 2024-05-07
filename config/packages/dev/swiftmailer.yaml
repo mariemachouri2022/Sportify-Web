@@ -1,0 +1,8 @@
+# See https://symfony.com/doc/current/email/dev_environment.html
+#swiftmailer:
+#    send all emails to a specific address
+#    delivery_addresses: ['me@example.com']
+# config/packages/dev/swiftmailer.yaml
+swiftmailer:
+    disable_delivery: true # Désactiver la livraison réelle des e-mails
+    delivery_addresses: ['me@example.com'] # Adresse e-mail de destination pour les e-mails

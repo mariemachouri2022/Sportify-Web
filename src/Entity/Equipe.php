@@ -32,9 +32,9 @@ class Equipe
     #[ORM\JoinColumn(name: "IDCateg", referencedColumnName: "IDCateg")]
     private ?Categorie $IDCateg = null;
 
-    #[ORM\ManyToOne(targetEntity: Utilisateur::class, inversedBy: 'equipes')]
-    #[ORM\JoinColumn(name: "id_createur", referencedColumnName: "ID_User")]
-    private ?Utilisateur $idUser = null;
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: 'equipes')]
+    #[ORM\JoinColumn(name: "id_createur", referencedColumnName: "id")]
+    private ?Utilisateurs $idUser = null;
 
     #[ORM\OneToMany(mappedBy: 'Equipe1', targetEntity: Matc::class)]
     private Collection $matcs;
@@ -109,12 +109,12 @@ class Equipe
         return $this;
     }
 
-    public function getIdUser(): ?Utilisateur
+    public function getIdUser(): ?Utilisateurs
     {
         return $this->idUser;
     }
 
-    public function setIdUser(?Utilisateur $idUser): self
+    public function setIdUser(?Utilisateurs $idUser): self
     {
         $this->idUser = $idUser;
         return $this;

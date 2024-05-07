@@ -4,15 +4,16 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    # Mettez vos paramètres ici
 
 services:
-    # default configuration for services in *this* file
+    # Configuration par défaut pour les services dans *ce* fichier
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true      # Injecte automatiquement les dépendances dans vos services.
+        autoconfigure: true # Enregistre automatiquement vos services en tant que commandes, abonnés d'événements, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    # Rend les classes dans src/ disponibles pour être utilisées en tant que services
+    # Cela crée un service par classe dont l'ID est le nom de la classe entièrement qualifié
     App\:
         resource: '../src/'
         exclude:
@@ -20,5 +21,28 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Ajoutez plus de définitions de services lorsque vous avez besoin d'une configuration explicite
+    # Veuillez noter que les dernières définitions remplacent toujours les précédentes
+
+   
+    # Définition du service http_client.guzzle
+    Symfony\Component\HttpClient\Psr18Client: ~
+
+
+   
+
+    twilio.client:
+       class: Twilio\Rest\Client
+       arguments: ['%twilio_sid%', '%twilio_token%']
+  
+    # Ajoute un alias pour le service twilio.client
+    Twilio\Rest\Client: '@twilio.client'
+
+    App\Mailer\Weather:
+        arguments:
+            $httpClient: '@http_client'
+
+    App\Mailer\MatchMailer:
+        arguments:
+            $mailer: '@Symfony\Component\Mailer\MailerInterface'
+            $twig: '@twig'

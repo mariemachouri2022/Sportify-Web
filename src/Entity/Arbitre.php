@@ -22,10 +22,24 @@ class Arbitre
 
   
     #[ORM\Column(length:255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 10,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $nom=null;
 
     
     #[ORM\Column(length:65535)]
+    #[Assert\NotBlank(message: "Le prenom ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 10,
+        minMessage: "Le prenom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le prenom ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $prenom=null;
 
    
@@ -36,6 +50,8 @@ class Arbitre
 
     
     #[ORM\Column(length:255)]
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^\d{8}$/',message:"le numero doit etre 8 chiffres")]
     private ?string $phone=null;
 
     #[ORM\OneToMany(mappedBy: 'arbitre', targetEntity: Matc::class)]

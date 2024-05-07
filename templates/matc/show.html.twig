@@ -49,6 +49,7 @@
     </table>
 
     <a href="{{ path('app_matc_index') }}" class="btn btn-primary btn-details">back to list</a>
+<a href="{{ path('app_pdf', {'idMatc': matc.idMatc}) }}" class="btn btn-primary">Export PDF</a>
     <a href="{{ path('app_matc_edit', {'idMatc': matc.idMatc}) }}" class="btn btn-primary btn-modifier">Modifier</a>
     {{ include('matc/_delete_form.html.twig') }}
 

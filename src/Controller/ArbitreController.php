@@ -10,8 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-#[Route('/arbitre')]
+#[Route('/admin/arbitre')]
 class ArbitreController extends AbstractController
 {
     #[Route('/', name: 'app_arbitre_index', methods: ['GET'])]
@@ -78,4 +81,47 @@ class ArbitreController extends AbstractController
 
         return $this->redirectToRoute('app_arbitre_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/arbitres/export', name: 'export_arbitres_excel')]
+public function exportArbitresExcel(ArbitreRepository $arbitreRepository): Response
+{
+    // Récupérer la liste des arbitres depuis la base de données
+    $arbitres = $arbitreRepository->findAll();
+
+    // Créer un nouveau Spreadsheet
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Ajouter les en-têtes
+    $headers = ['Nom', 'Prénom', 'Email', 'Téléphone'];
+    $rowIndex = 1;
+
+    foreach ($headers as $index => $header) {
+        // Vous pouvez utiliser la fonction chr() pour convertir un index en lettre de colonne
+        $column = chr(65 + $index); // A = 65, B = 66, etc.
+    
+        // Utilisez la lettre de colonne calculée et le numéro de ligne actuel pour affecter la valeur de l'en-tête
+        $sheet->setCellValue($column . $rowIndex, $header);
+    }
+
+    // Ajouter les données des arbitres
+    $rowIndex = 2;
+    foreach ($arbitres as $arbitre) {
+        $sheet->setCellValue('A' . $rowIndex, $arbitre->getNom());
+        $sheet->setCellValue('B' . $rowIndex, $arbitre->getPrenom());
+        $sheet->setCellValue('C' . $rowIndex, $arbitre->getEmail());
+        $sheet->setCellValue('D' . $rowIndex, $arbitre->getPhone());
+        $rowIndex++;
+    }
+
+    // Sauvegarder le fichier Excel
+    $excelFilename = 'arbitres_export.xlsx';
+    $excelFilePath = $this->getParameter('kernel.project_dir') . '/public/' . $excelFilename;
+    $writer = new Xlsx($spreadsheet);
+    $writer->save($excelFilePath);
+
+    // Retourner le fichier Excel en tant que réponse
+    return new BinaryFileResponse($excelFilePath);
+}
+
+    
 }

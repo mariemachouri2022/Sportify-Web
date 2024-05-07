@@ -6,6 +6,8 @@ use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MatcRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: MatcRepository::class)]
 class Matc
@@ -16,20 +18,49 @@ class Matc
     
     private ?int $idMatc=null;
 
-    #[ORM\Column(length:100)]
+    #[ORM\Column(length:255)]
+    #[Assert\NotBlank(message: "Le nom ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 3,
+        max: 10,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $nom=null;
 
  
    #[ORM\Column(length:100)]
+   #[Assert\NotBlank(message: "Le type ne peut pas être vide.")]
+   #[Assert\Choice(
+       choices: ['Normal', 'Custom', 'Ranked'],
+       message: "Veuillez choisir un type valide."
+   )]
     private ?string $type=null;
 
    #[ORM\Column(type: Types::DATE_MUTABLE)]
+   #[Assert\NotBlank(message: "La date ne peut pas être vide.")]
+    #[Assert\GreaterThan(
+        value: "today",
+        message: "La date doit être postérieure à aujourd'hui."
+    )]
+    #[Assert\LessThan(
+        value: "+15 days",
+        message: "La date ne peut pas dépasser 15 jours à partir d'aujourd'hui."
+    )]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Assert\NotBlank(message: "L'heure ne peut pas être vide.")]
     private ?\DateTimeInterface $heure = null;
    
     #[ORM\Column(length:255)]
+    #[Assert\NotBlank(message: "La description ne peut pas être vide.")]
+    #[Assert\Length(
+        min: 10,
+        max: 30,
+        minMessage: "La description doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "La description ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $description=null;
     #[ORM\ManyToOne(targetEntity: Equipe::class)]
     #[ORM\JoinColumn(name: 'Equipe1', referencedColumnName: 'IDEquipe')]

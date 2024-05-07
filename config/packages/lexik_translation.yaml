@@ -1,0 +1,3 @@
+lexik_translation:
+    fallback_locale: en
+    managed_locales: ['fr', 'en'] # Remplacez avec les langues que vous souhaitez gérer

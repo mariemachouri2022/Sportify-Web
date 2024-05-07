@@ -1,0 +1,3 @@
+swiftmailer:
+    disable_delivery: true # Désactiver la livraison réelle des e-mails
+    delivery_addresses: ['test@example.com'] # Adresse e-mail de destination pour les e-mails de test

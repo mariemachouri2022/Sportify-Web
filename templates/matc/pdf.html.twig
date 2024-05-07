@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails du Match</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff; /* Couleur bleue */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2; /* Couleur de fond gris clair pour les en-têtes */
+        }
+        .qr-container {
+            position: relative;
+            text-align: center;
+        }
+         img.qr-code {
+            width: 200px; /* Ajustez la taille selon vos besoins */
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>Détails du Match</h1>
+    <table>
+        <tr>
+            <th>Id du Match</th>
+            <td>{{ matc.idMatc }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ matc.nom }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ matc.type }}</td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td>{{ matc.date ? matc.date|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Heure</th>
+            <td>{{ matc.heure ? matc.heure|date('H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ matc.description }}</td>
+        </tr>
+        <tr>
+            <th>Equipe 1</th>
+            <td>{{ matc.equipe1 }}</td>
+        </tr>
+        <tr>
+            <th>Equipe 2</th>
+            <td>{{ matc.equipe2 }}</td>
+        </tr>
+        <tr>
+            <th>Arbitre</th>
+            <td>{{ matc.arbitre }}</td>
+        </tr>
+    </table>
+    <div class="qr-container">
+    
+        <img class="qr-code" src="{{ qrCode }}" alt="QR Code du match">
+    </div>
+</body>
+</html>
