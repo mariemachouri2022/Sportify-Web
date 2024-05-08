@@ -1,0 +1,33 @@
+    {% extends 'equipe/base.html.twig' %}
+
+    {% block title %}Edit Terrain{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <style>
+            .container {
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-secondary {
+                border-radius: 25px;
+                padding: 8px 16px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    {% endblock %}
+
+    {% block body %}
+        <div class="container">
+            <h1>Edit Terrain</h1>
+
+            {{ include('terrain/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <a href="{{ path('app_terrain_index') }}" class="btn btn-secondary">Back to List</a>
+
+            {{ include('terrain/_delete_form.html.twig') }}
+        </div>
+    {% endblock %}

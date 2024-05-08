@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Equipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +13,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class ProfileController extends AbstractController
 {
@@ -56,14 +59,22 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('image')->getData();
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $targetDirectory = $this->getParameter('kernel.project_dir') . '/public';
-            $file->move($targetDirectory, $fileName);
-            $utilisateur->setImage($fileName);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
-        }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $file = $form->get('image')->getData();
+            
+                // Check if a file was uploaded
+                if ($file !== null) {
+                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                    $targetDirectory = $this->getParameter('kernel.project_dir') . '/public';
+                    $file->move($targetDirectory, $fileName);
+                    $utilisateur->setImage($fileName);
+                }
+            
+                $entityManager->flush();
+            
+                return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
+            }
+        }            
         return $this->renderForm('profile/updateprofile.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,

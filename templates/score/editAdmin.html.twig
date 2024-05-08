@@ -1,0 +1,342 @@
+{% extends 'homeInterfaces/admin.html.twig' %}
+
+{% block title %}New Score
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900 &display=swap");
+
+		*,
+		*:after,
+		*:before {
+			box-sizing: border-box;
+		}
+
+		:root {
+			--color-text-primary: #1c2a38;
+			--color-text-secondary: #8A8F98;
+			--color-text-alert: #d72641;
+			--color-text-icon: #dbdade;
+			--color-bg-primary: #fff;
+			--color-bg-secondary: #f3f5f9;
+			--color-bg-alert: #fdeaec;
+			--color-theme-primary: #623ce6;
+		}
+
+		button,
+		input,
+		select,
+		textarea {
+			font: inherit;
+		}
+
+		img {
+			display: block;
+		}
+
+		strong {
+			font-weight: 600;
+		}
+
+		body {
+			font-family: "Inter", sans-serif;
+			line-height: 1.5;
+			color: var(--color-text-primary);
+			background-color: var(--color-bg-secondary);
+		}
+
+		.match {
+			background-color: var(--color-bg-primary);
+			display: flex;
+			flex-direction: column;
+			min-width: 600px;
+			border-radius: 10px;
+			box-shadow: 0 0 2px 0 rgba(#303030, 0.1), 0 4px 4px 0 rgba(#303030, 0.1);
+		}
+
+		.match-header {
+			display: flex;
+			align-items: center;
+			border-bottom: 2px solid rgba(#303030, 0.1);
+			padding: 16px;
+		}
+
+		.match-status {
+			background-color: var(--color-bg-alert);
+			color: var(--color-text-alert);
+			padding: 8px 12px;
+			border-radius: 6px;
+			font-weight: 600;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			line-height: 1;
+			margin-right: auto;
+			&:before {
+				content: "";
+				display: block;
+				width: 6px;
+				height: 6px;
+				background-color: currentColor;
+				border-radius: 50%;
+				margin-right: 8px;
+			}
+		}
+
+		.match-tournament {
+			display: flex;
+			align-items: center;
+			margin-right: 40%;
+			font-weight: 600;
+			img {
+				width: 20px;
+				margin-right: 12px;
+			}
+		}
+
+		.match-content {
+			display: flex;
+			position: relative;
+		}
+
+		.column {
+			padding: 32px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: calc(100% / 3);
+		}
+
+		.team {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.team-logo {
+			width: 100px;
+			height: 100px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			background-color: var(--color-bg-primary);
+			box-shadow: 0 4px 4px 0 rgba(#303030, 0.15), 0 0 0 15px var(--color-bg-secondary);
+			img {
+				width: 50px;
+			}
+		}
+
+		.team-name {
+			text-align: center;
+			margin-top: 24px;
+			font-size: 20px;
+			font-weight: 600;
+		}
+
+		.match-details {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.match-date,
+		.match-referee {
+			font-size: 14px;
+			color: var(--color-text-secondary);
+			strong {
+				color: var(--color-text-primary);
+			}
+		}
+
+		.match-score {
+			margin-top: 12px;
+			display: flex;
+			align-items: center;
+		}
+
+		.match-score-number {
+			font-size: 48px;
+			font-weight: 600;
+			line-height: 1;
+			&--leading {
+				color: var(--color-theme-primary);
+			}
+		}
+
+		.match-score-divider {
+			font-size: 28px;
+			font-weight: 700;
+			line-height: 1;
+			color: var(--color-text-icon);
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.match-time-lapsed {
+			color: #DF9443;
+			font-size: 14px;
+			font-weight: 600;
+			margin-top: 8px;
+		}
+
+		.match-referee {
+			margin-top: 12px;
+		}
+
+		
+
+
+		.match-bet-place {
+			position: absolute;
+			bottom: -5px;
+			left: 50%;
+			transform: translateX(-50%);
+			border: 0;
+			background-color: var(--color-theme-primary);
+			border-radius: 6px;
+			padding: 10px 48px;
+			color: rgba(#fff, 0.9);
+			font-size: 14px;
+			box-shadow: 0 4px 8px 0 rgba(#303030, 0.25);
+		}
+
+		.containerr {
+			top: 10px;
+			left: 0;
+			right: 0;
+			bottom: 30px;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.form-group input[type="number"] {
+            width: 50px; /* Adjust the width as needed */
+            font-size: 48px; /* Set the font size to match other numbers */
+            text-align: center; /* Center align the text */
+            border: none; /* Remove border */
+            background: none; /* Remove background */
+        }
+
+        /* Align input fields horizontally */
+        .form-group {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+	</style>
+{% endblock %}
+{% block body %}
+	<h1>Score {{ competition.nom}}</h1>
+
+	
+    
+    
+	<div
+		class="containerr">
+		<!-- code here -->
+		<div class="match">
+			<div class="match-header">
+				<div class="match-status" id="match-status">Live</div>
+				<div class="match-tournament"><img src="\front\images\logo-SPORTIFY-icon.ico"/>RANKED TEAM</div>
+			</div>
+			<div class="match-content">
+				<div class="column">
+					<div class="team team--home">
+						<div class="team-logo">
+							<img src="\front\images\logo-SPORTIFY-icon.ico"/>
+						</div>
+						<h1 class="team-name">{{ competition.equipe1.nom }}</h1>
+					</div>
+				</div>
+				<div class="column">
+					<div class="match-details">
+						<div class="match-date">
+							    {{ competition.date ? competition.date|date('d M Y') : 'N/A' }} at
+							<strong>{{ competition.heure ? competition.heure|date('H:i') : '' }}</strong>
+						</div>
+						{{ form_start(form) }}
+						<div class="match-score">
+							<span class="match-score-number match-score-number--leading">
+                            	 <div class="form-group">
+                                    {{ form_widget(form.equipe1score) }}
+                                </div>
+							</span>
+							<span class="match-score-divider">:</span>
+							<span class="match-score-number">
+								<div class="form-group">
+                                    {{ form_widget(form.equipe2score) }}
+                                </div>
+							</span>
+						</div>
+						<div class="match-time-lapsed" id="match-time-lapsed">
+							
+						</div>
+						<div class="match-referee">
+							
+							<strong>{{ competition.terrain.nom }}</strong>
+						</div>
+						<button class="match-bet-place">Enregistrer</button>
+					{{ form_end(form) }}
+					</div>
+
+				</div>
+				<div class="column">
+					<div class="team team--away">
+						<div class="team-logo">
+							<img src="\front\images\logo-SPORTIFY-icon.ico"/>
+						</div>
+						<h1 class="team-name">{{ competition.equipe2.nom }}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<script>
+        // JavaScript code to update the match time elapsed dynamically
+        var matchStartTime = new Date('{{ competition.date|date("Y-m-d") }} {{ competition.heure|date("H:i:s") }}');
+        var matchDuration = 90; // Duration in minutes
+        var matchTimeElapsedElement = document.getElementById('match-time-lapsed');
+        var matchstatus = document.getElementById('match-status');
+
+        function updateMatchTimeElapsed() {
+            var currentTime = new Date();
+            var elapsedTime = Math.floor((currentTime - matchStartTime) / 1000 / 60); // Elapsed time in minutes
+            var timeLeft = matchDuration - elapsedTime;
+            if (timeLeft <= 0) {
+                matchTimeElapsedElement.textContent = 'Finished';
+				matchstatus.textContent="Finished"
+            } else {
+                matchTimeElapsedElement.textContent = timeLeft + "'";
+            }
+        }
+
+        // Update the match time elapsed every second
+        setInterval(updateMatchTimeElapsed, 1000);
+
+		document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('form');
+            var equipe1scoreInput = form.querySelector('#{{ form.equipe1score.vars.id }}');
+            var equipe2scoreInput = form.querySelector('#{{ form.equipe2score.vars.id }}');
+
+            form.addEventListener('submit', function (event) {
+                if ((parseInt(equipe1scoreInput.value) < 0) || (parseInt(equipe2scoreInput.value) < 0)) {
+                   var alertMessage = 'Scores cannot be negative.';
+            // Show the modified alert message
+            alert(alertMessage);
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        });
+    </script>
+
+    		    <a href="{{ path('app_competition_index') }}">back to competition list</a>
+
+{% endblock %}

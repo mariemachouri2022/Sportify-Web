@@ -1,0 +1,68 @@
+{% extends 'categorie/admin.html.twig' %}
+
+{% block title %}Edit Reservation{% endblock %}
+
+{% block body %}
+    <style>
+        /* Button styles */
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        /* Link styles */
+        .link {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: darkblue;
+            text-decoration: underline;
+        }
+
+        /* Terrain image styles */
+        .terrain-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <h1>Edit Reservation</h1>
+
+    {# Display Terrain Information #}
+    {% if reservation.idTerrain %}
+        <h2>Terrain Information</h2>
+        <p><strong>Name:</strong> {{ reservation.idTerrain.nom }}</p>
+        {% if reservation.idTerrain.imageTer %}
+            <img src="{{ asset('uploads/terrain_images/' ~ reservation.idTerrain.imageTer) }}" alt="Terrain Image" class="terrain-image">
+        {% else %}
+            <p>No Image Available</p>
+        {% endif %}
+    {% else %}
+        <p>No Terrain Associated</p>
+    {% endif %}
+
+    {{ include('reservation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reservation_indexadmin') }}" class="button">Back to list</a>
+
+    {{ include('reservation/_delete_form.html.twig') }}
+{% endblock %}

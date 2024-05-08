@@ -4,27 +4,68 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategorieRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[Vich\Uploadable]
 class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "IDCateg", type: "integer")]
+    private ?int $IDCateg = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "Le nom ne doit pas être vide.")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 65535)]
+    #[Assert\NotBlank(message: "Le description ne doit pas être vide.")]
     private ?string $description = null;
 
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'image ne doit pas être vide.")]
     private ?string $image = null;
 
-    public function getId(): ?int
+    
+    #[Vich\UploadableField(mapping: 'category_images', fileNameProperty: 'image')]
+    private ?File $imageFile = null;
+    /*
+      @Vich\UploadableField(mapping="category_images", fileNameProperty="image")
+     
+    private ?File $imageFile = null;
+*/
+    public function setImageFile(?File $imageFile): void
     {
-        return $this->id;
+        $this->imageFile = $imageFile;
+    }
+    private $qrCode;
+
+    public function getQrCode(): ?string
+    {
+        return $this->qrCode;
+    }
+
+    public function setQrCode(string $qrCode): self
+    {
+        $this->qrCode = $qrCode;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function getIDCateg(): ?int
+    {
+        return $this->IDCateg;
     }
 
     public function getNom(): ?string
@@ -58,5 +99,15 @@ class Categorie
     {
         $this->image = $image;
         return $this;
+    }
+     /**
+     * Returns the string representation of the Categorie object.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        // Modify this method according to your needs
+        return $this->nom; // Assuming 'nom' is a property of your Categorie entity
     }
 }

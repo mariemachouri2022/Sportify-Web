@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Match Details</title>
+</head>
+<body>
+    <h1>Match Details</h1>
+    <p>Nous avons le plaisir de vous informer de votre affectation pour le match entre {{ matc.getEquipe1() }} et {{matc.getEquipe2() }} prévu pour le {{ matc.getDate()|date('Y-m-d') }}, {{matc.getHeure()|date('H:i')}}.</p>
+    <h2>Détails du match :</h2>
+    <ul>
+        <li>Lieu du match : {{ selectedCity }}</li>
+         <li>Météo pour le match</li>
+        <p>
+            Les conditions météorologiques pour la ville de {{ selectedCity }} sont les suivantes :
+            <ul>
+                <li>Température: {{ weatherData.weather_details.temperature }}°C</li>
+                <li>Humidité: {{ weatherData.weather_details.humidity }}%</li>
+                <li>Pression atmosphérique: {{ weatherData.weather_details.pressure }} hPa</li>
+                <li>Visibilité: {{ weatherData.weather_details.visibility }} mètres</li>
+                <li>Vitesse du vent: {{ weatherData.weather_details.wind_speed }} m/s</li>
+                <li>Direction du vent: {{ weatherData.weather_details.wind_direction }} degrés</li>
+                <li>Nuages: {{ weatherData.weather_details.cloudiness }}%</li>
+            </ul>
+        </p>
+    </ul>
+    <p>Veuillez vous assurer d'être prêt et disponible pour le match à l'heure convenue.</p>
+    <p>Cordialement,<br>Sportify</p>
+</body>
+</html>

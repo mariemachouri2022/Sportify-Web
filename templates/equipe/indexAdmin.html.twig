@@ -1,0 +1,53 @@
+{% extends 'categorie/admin.html.twig' %}
+
+{% block title %}Equipe index{% endblock %}
+
+{% block body %}
+
+    <h1>Equipe index</h1>
+
+    {# Formulaire de recherche #}
+    <form action="{{ path('app_equipe_index') }}" method="GET">
+        <input type="text" name="searchTerm" placeholder="Search by name">
+        <button type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Niveau</th>
+                <th>Israndom</th>
+                <th>Rank</th>
+                <th>Players</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipe in equipes %}
+            <tr>
+                <td>{{ equipe.IDEquipe }}</td>
+                <td>{{ equipe.nom }}</td>
+                <td>{{ equipe.niveau }}</td>
+                <td>{{ equipe.israndom ? 'Yes' : 'No' }}</td>
+                <td>{{ equipe.rank }}</td>
+                <td>
+                    {% for player in equipe.utilisateurs %}
+                        {{ player.nom }} {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_equipe_show', {'IDEquipe': equipe.IDEquipe}) }}">show</a>
+                    <a href="{{ path('app_equipe_edit', {'IDEquipe': equipe.IDEquipe}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equipe_new') }}">Create new</a>
+{% endblock %}

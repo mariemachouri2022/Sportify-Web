@@ -1,0 +1,23 @@
+{% extends 'equipe/base.html.twig' %}
+
+{% block title %}Ajouter un nouvel arbitre{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="card-title mb-0">Ajouter un nouvel arbitre</h1>
+                    </div>
+                    <div class="card-body">
+                        {{ include('arbitre/_form.html.twig') }}
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <a href="{{ path('app_arbitre_index') }}" class="btn btn-secondary">Retour à la liste des arbitres</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

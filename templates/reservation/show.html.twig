@@ -1,0 +1,123 @@
+{% extends 'equipe/base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <style>
+        /* Table styles */
+        .table-container {
+            perspective: 1000px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #ddd;
+            transform-style: preserve-3d;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            background-color: #f2f2f2;
+            transition: transform 0.5s;
+        }
+
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .table tr:hover td {
+            background-color: #f2f2f2;
+            transform: translateZ(10px);
+        }
+
+        /* Button styles */
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        /* Link styles */
+        .link {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: darkblue;
+            text-decoration: underline;
+        }
+
+        /* Terrain image styles */
+        .terrain-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <h1>Reservation</h1>
+
+    <div class="table-container">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>DateHeure</th>
+                    <td>{{ reservation.dateHeure ? reservation.dateHeure|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Duree</th>
+                    <td>{{ reservation.duree }}</td>
+                </tr>
+                {# Display Terrain Information if available #}
+                {% if reservation.idTerrain %}
+                    <tr>
+                        <th>Terrain Name</th>
+                        <td>{{ reservation.idTerrain.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Terrain Photo</th>
+                        <td>
+                            {% if reservation.idTerrain.imageTer %}
+                                <img src="{{ asset('uploads/terrain_images/' ~ reservation.idTerrain.imageTer) }}" alt="Terrain Image" class="terrain-image">
+                            {% else %}
+                                <p>No Image Available</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ path('app_reservation_index') }}" class="button">Back to list</a>
+
+    <a href="{{ path('app_reservation_edit', {'idReservation': reservation.idReservation}) }}" class="button">Edit</a>
+
+    {# Delete button with form submission #}
+    <form method="post" action="{{ path('app_reservation_delete', {'idReservation': reservation.idReservation}) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.idReservation) }}">
+        <button type="submit" class="button">Delete</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'admin.html.twig' %}
+
+{% block body %}
+    <h1>New Categorie</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.image) }}
+    <button type="submit">Save</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_categorie_index_admin') }}">Back to list</a>
+{% endblock %}

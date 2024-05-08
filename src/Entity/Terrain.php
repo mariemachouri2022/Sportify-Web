@@ -4,14 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TerrainRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TerrainRepository::class)]
 class Terrain
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: "integer")]
-    private ?int $id = null;
+    #[ORM\Column(name: "id_Terrain", type: "integer")]
+    private ?int $id_Terrain = null;
 
     #[ORM\Column(length:255)]
     private ?string $nom = null;
@@ -21,9 +22,15 @@ class Terrain
 
     #[ORM\Column(length:255)]
     private ?string $localisation = null;
-
     #[ORM\Column(type: "float")]
+    #[Assert\NotBlank(message: "Le prix est requis")]
+    #[Assert\Range(
+        max: 500,
+        maxMessage: "Le prix ne peut pas dépasser {{ limit }}"
+    )]
     private ?float $prix = null;
+    #[ORM\Column(type: "integer", nullable: true)]
+    private ?int $promotion = null;
 
     #[ORM\Column(name: "id_proprietaire", type: "integer")]
     private ?int $idProprietaire = null;
@@ -33,7 +40,7 @@ class Terrain
 
     public function getIdTerrain(): ?int
     {
-        return $this->idTerrain;
+        return $this->id_Terrain;
     }
 
     public function getNom(): ?string
@@ -107,9 +114,15 @@ class Terrain
 
         return $this;
     }
-
-    public function getId(): ?int
+    public function getPromotion(): ?int
     {
-        return $this->id;
+        return $this->promotion;
+    }
+
+    public function setPromotion(?int $promotion): self
+    {
+        $this->promotion = $promotion;
+
+        return $this;
     }
 }

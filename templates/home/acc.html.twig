@@ -107,8 +107,13 @@
                      <div class="col-md-12">
                         <div class="full">
                            <div class="main-menu-section">
-                              <div class="menu">
-                                 <nav class="navbar navbar-inverse">
+              <div  style="float: left;
+    min-height: auto;
+    background: #fff;
+    position: relative;
+    bottom: 76px;
+    right: 188px;
+">                                 <nav class="navbar navbar-inverse">
                                     <div class="navbar-header">
                                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
                                        <span class="sr-only">Toggle navigation</span>
@@ -122,8 +127,20 @@
                                        <ul class="nav navbar-nav">
                                           <li class="active"><a href="#">Home</a></li>
                                           <li><a href="{{path('app_profile')}}">Profile</a></li>
-                                          <li><a href="team.html">Equipement</a></li>
-                                          <li><a href="{{path('app_categorie')}}">categorie</a></li>
+                                         <li><a href="{{path('app_equipe_index')}}">Equipes</a></li>
+                                          <li><a href="{{path('app_categories_index_paginate')}}">Catégories</a></li>
+                                          <li><a href="{{path('search')}}">Search</a></li>
+                                         <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Competition <i class="fa fa-caret-down"></i></a>
+                                    <ul class="dropdown-menu competition-submenu">
+                                    <li><a href="/competition/Teams"> COMPETITION TEAMS</a></li>
+                                    <li><a href="/competition/Solo"> COMPETITION SOLO</a></li>
+                                    </ul>
+                                  </li>
+                                          <li><a href="{{path('app_classementequipe_index')}}">Classement</a></li>
+                                          <li><a href="{{path('app_matc_index')}}">Match</a></li>
+                                           <li><a href="{{path('app_terrain_index')}}">Terrain</a></li>
+                                           <li><a href="{{path('app_reservation_index')}}">Réservation</a></li>
 
                                           <li class="dropdown mega-dropdown">
                                              <a href="categorie.html" class="dropdown-toggle" data-toggle="dropdown">Match<span class="caret"></span></a>				

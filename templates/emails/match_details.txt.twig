@@ -1,0 +1,20 @@
+Cher destinataire,
+
+Nous avons le plaisir de vous informer de votre affectation pour le match entre {{ matc.getEquipe1() }} et {{ matc.getEquipe2() }} prévu pour le {{ matc.getDate()|date('Y-m-d') }} à {{ matc.getHeure()|date('H:i') }}.
+Détails du match :
+- Lieu du match : {{selectedCity}}
+- Météo pour le match :
+    Les conditions météorologiques pour la ville de {{selectedCity}} sont les suivantes :
+    - Température : {{ weatherData.weather_details.temperature }}°C
+    - Humidité : {{ weatherData.weather_details.humidity }}%
+    - Pression atmosphérique : {{ weatherData.weather_details.pressure }} hPa
+    - Visibilité : {{ weatherData.weather_details.visibility }} mètres
+    - Vitesse du vent : {{ weatherData.weather_details.wind_speed }} m/s
+    - Direction du vent : {{ weatherData.weather_details.wind_direction }} degrés
+    - Nuages : {{ weatherData.weather_details.cloudiness }}%
+    
+
+Veuillez vous assurer d'être prêt et disponible pour le match à l'heure convenue.
+
+Cordialement,
+Sportify

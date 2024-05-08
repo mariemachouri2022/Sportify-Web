@@ -1,0 +1,45 @@
+{% extends 'homeInterfaces/admin.html.twig' %}
+
+{% block title %}Competition index
+{% endblock %}
+
+{% block body %}
+	<h1>Competition index</h1>
+	<a href="{{ path('app_competition_new') }}" class="button new">Create new</a>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Type</th>
+				<th>Date</th>
+				<th>Heure</th>
+				<th>Description</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for competition in competitions %}
+				<tr>
+					<td>{{ competition.nom }}</td>
+					<td>{{ competition.type }}</td>
+					<td>{{ competition.date ? competition.date|date('Y-m-d') : ''  }}</td>
+					<td>{{ competition.heure ? competition.heure|date('H:i:s') : '' }}</td>
+					<td>{{ competition.description }}</td>
+					<td>
+						<a href="{{ path('app_competition_show', {'idCompetition': competition.idCompetition}) }}">show</a>
+						<a href="{{ path('app_competition_edit', {'idCompetition': competition.idCompetition}) }}">edit</a>
+						<a href="{{ path('app_score_newAdmin', {'idCompetition': competition.idCompetition}) }}">Score</a>
+
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+{% endblock %}

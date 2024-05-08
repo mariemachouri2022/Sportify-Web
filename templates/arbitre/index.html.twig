@@ -1,0 +1,43 @@
+{% extends 'equipe/base.html.twig' %}
+
+{% block title %}Arbitre {% endblock %}
+
+{% block body %}
+    <h1>Arbitre index</h1>
+    <a href="{{ path('export_arbitres_excel') }}" class="btn btn-primary">Export Excel</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdArbitre</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for arbitre in arbitres %}
+            <tr>
+                <td>{{ arbitre.idArbitre }}</td>
+                <td>{{ arbitre.nom }}</td>
+                <td>{{ arbitre.prenom }}</td>
+                <td>{{ arbitre.email }}</td>
+                <td>{{ arbitre.phone }}</td>
+                <td>
+                    <a href="{{ path('app_arbitre_show', {'idArbitre': arbitre.idArbitre}) }}">show</a>
+                    <a href="{{ path('app_arbitre_edit', {'idArbitre': arbitre.idArbitre}) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        {% if arbitres|length == 0 %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_arbitre_new') }}">Create new</a>
+{% endblock %}

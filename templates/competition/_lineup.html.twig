@@ -1,0 +1,111 @@
+<div class="field">
+    <div class="field__container">
+        <div class="field__half">
+            <div class="penalty-box">
+                <div class="penalty-box__container">
+                    <div class="penalty-box__infield"></div>
+                    <div class="penalty-box__circle"></div>
+                </div>
+            </div>
+            <div class="field__corner field__corner--right"></div>
+            <div class="field__corner field__corner--left"></div>
+            <div class="formation formation--home">
+                <div class="formation__line">
+                    {% for equipe1Member in equipe1Members|slice(0, 1) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe1Member.id }}</div>
+                        <span class="player__name">{{ equipe1Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="formation__line">
+                    {% for equipe1Member in equipe1Members|slice(1, 4) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe1Member.id }}</div>
+                        <span class="player__name">{{ equipe1Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="formation__line">
+                    {% for equipe1Member in equipe1Members|slice(5, 3) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe1Member.id }}</div>
+                        <span class="player__name">{{ equipe1Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+				 <div class="formation__line">
+                    {% for equipe1Member in equipe1Members|slice(8, 3) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe1Member.id }}</div>
+                        <span class="player__name">{{ equipe1Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                 </div>
+    <form id="join-team-form-{{ competition.idCompetition }}" action="{{ path('join_team', {'equipeId': competition.equipe1.idEquipe, 'competitionId': competition.idCompetition}) }}" method="post">
+    <div class="formation__line">
+        <div class="player">
+            <button type="submit" class="player__number">+</button>
+            <span class="player__name">REJOINDRE</span>
+        </div>
+    </div>
+</form>
+            </div>
+        </div>
+        <div class="field__center-line"></div>
+        <div class="field__half field__half--reverse">
+            <div class="formation formation--away">
+			<form id="join-team-form-{{ competition.idCompetition }}" action="{{ path('join_team', {'equipeId': competition.equipe2.idEquipe, 'competitionId': competition.idCompetition}) }}" method="post">
+    <div class="formation__line">
+        <div class="player">
+            <button type="submit" class="player__number">+</button>
+            <span class="player__name">REJOINDRE</span>
+        </div>
+    </div>
+</form>
+			    <div class="formation__line">
+                    {% for equipe2Member in equipe2Members|slice(8, 3) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe2Member.id }}</div>
+                        <span class="player__name">{{ equipe2Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+				<div class="formation__line">
+                    {% for equipe2Member in equipe2Members|slice(5, 3) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe2Member.id }}</div>
+                        <span class="player__name">{{ equipe2Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+				<div class="formation__line">
+                    {% for equipe2Member in equipe2Members|slice(1, 4) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe2Member.id }}</div>
+                        <span class="player__name">{{ equipe2Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="formation__line">
+                    {% for equipe2Member in equipe2Members|slice(0, 1) %}
+                    <div class="player">
+                        <div class="player__number">{{ equipe2Member.id }}</div>
+                        <span class="player__name">{{ equipe2Member.nom }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            <div class="penalty-box">
+                <div class="penalty-box__container">
+                    <div class="penalty-box__infield"></div>
+                    <div class="penalty-box__circle"></div>
+                </div>
+            </div>
+            <div class="field__corner field__corner--right"></div>
+            <div class="field__corner field__corner--left"></div>
+
+        </div>
+    </div>
+    </div>

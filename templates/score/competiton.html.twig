@@ -1,0 +1,43 @@
+{% extends 'homeInterfaces/acc2.html.twig' %}
+
+{% block title %}Competition index{% endblock %}
+
+{% block body %}
+    <h2>Competition index</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Description</th>
+                <th>Terrain</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for competition in competitions %}
+                <tr>
+                    <td>{{ competition.nom }}</td>
+                    <td>{{ competition.type }}</td>
+                    <td>{{ competition.date ? competition.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ competition.heure ? competition.heure|date('H:i:s') : '' }}</td>
+                    <td>{{ competition.description }}</td>
+                    <td>{{ competition.Terrain.nom }}</td>
+                    <td>
+                        {% if competition.date is null or competition.date|date('U') < "now"|date('U') %}
+                            <a href="{{ path('app_score_new', {'idCompetition': competition.idCompetition}) }}">Score</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

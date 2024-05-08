@@ -1,0 +1,17 @@
+{% extends 'categorie/admin.html.twig' %}
+{% block title %}New Equipe{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.niveau) }}
+    {{ form_row(form.israndom) }}
+    {{ form_row(form.rank) }}
+    {{ form_row(form.idcateg) }}
+    
+    <h3>Utilisateurs</h3>
+    {{ form_widget(form.utilisateurs) }} 
+    
+    <button type="submit">Save</button>
+{{ form_end(form) }}
+{% endblock %}

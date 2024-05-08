@@ -45,4 +45,40 @@ class TerrainRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+
+
+
+public function triertype()
+    {
+        return $this->createQueryBuilder('terrain')
+            ->orderBy('terrain.prix', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function TrieMontantdes()
+    {
+        return $this->createQueryBuilder('terrain')
+            ->orderBy('terrain.prix', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function countClub()
+        {
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->select('count(Terrain.validite)');
+            $qb->from('App\Entity\Terrain', 'terrain');
+    
+            $count = $qb->getQuery()->getSingleScalarResult();
+    
+            return $count;
+        }
+
+
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+
+use App\Entity\Equipe;
 use App\Repository\UtilisateursRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -9,6 +11,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection; 
+
+
+
+
 
 
 #[ORM\Entity(repositoryClass: UtilisateursRepository::class)]
@@ -61,6 +69,53 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $date_de_naissance = null;
     #[ORM\Column(type: 'boolean' , options: ['default' => false]) ]
     private $Verified = false;
+
+    #[ORM\ManyToOne(targetEntity: Equipe::class, inversedBy: 'utilisateurs')]
+    #[ORM\JoinColumn(name: "IDEquipe", referencedColumnName: "IDEquipe")]
+    private ?Equipe $equipe;
+
+
+
+    public function getEquipe(): ?Equipe
+    {
+        return $this->equipe;
+    }
+
+    public function setEquipe(?Equipe $equipe): self
+    {
+        $this->equipe = $equipe;
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->equipe = null;
+    }
+
+    public function getEquipes(): Collection
+    {
+        return $this->equipes;
+    }
+
+    public function addEquipe(Equipe $equipe): self
+    {
+        if (!$this->equipes->contains($equipe)) {
+            $this->equipes[] = $equipe;
+            $equipe->addUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(Equipe $equipe): self
+    {
+        if ($this->equipes->removeElement($equipe)) {
+            $equipe->removeUtilisateur($this); 
+        }
+
+        return $this;
+    
+    }
 
   
 
@@ -255,4 +310,5 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

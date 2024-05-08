@@ -6,10 +6,13 @@ use App\Entity\Utilisateurs;
 use App\Form\UtilisateursType;
 use App\Repository\UtilisateursRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Equipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 
 

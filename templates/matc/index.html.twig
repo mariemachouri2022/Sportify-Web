@@ -1,0 +1,107 @@
+{% extends 'equipe/base.html.twig' %}
+
+{% block title %}Matc index{% endblock %}
+
+{% block body %}
+ <style>
+        /* Style pour le bouton "Details" */
+        .btn-details {
+            background-color: #007bff; /* couleur bleue */
+            border-color: #007bff;
+            color: #fff; /* texte en blanc */
+        }
+
+        .btn-details:hover {
+            background-color: #0056b3; /* couleur bleue plus foncée au survol */
+            border-color: #0056b3;
+        }
+
+        /* Style pour le bouton "Modifier" */
+        .btn-modifier {
+            background-color: #ffc107; /* couleur jaune */
+            border-color: #ffc107;
+            color: #000; /* texte en noir */
+        }
+
+        .btn-modifier:hover {
+            background-color: #e0a800; /* couleur jaune plus foncée au survol */
+            border-color: #e0a800;
+        }
+        .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px; /* Espacement entre les cartes */
+        margin-top: 20px;
+    }
+
+    .card {
+        width: calc(33.33% - 20px); /* Largeur de chaque carte (3 cartes par ligne) */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Pour que l'image d'arrière-plan ne dépasse pas la carte */
+        background-color: #f8f9fa; /* Couleur de fond de la carte */
+        background-image: url('/images/360_F_513761212_i3z6vHUNV0bQ8pjkBGO3yrpLg8zs4mFK.jpg'); /* Image d'arrière-plan */
+        background-size: cover; /* Redimensionner l'image pour couvrir toute la carte */
+        background-position: center; /* Centrer l'image */
+    }
+
+    .card-content {
+    padding: 20px;
+    color: #ffffff !important; /* Nouvelle couleur de l'écriture avec !important */
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond semi-transparente */
+}
+    .card-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-details {
+        color: #ffffff
+        margin-top: 15px;
+    }
+
+    .card-button {
+        margin-top: 10px;
+    }
+      .card:hover {
+        transform: scale(1.05); /* Augmenter légèrement la taille de la carte au survol */
+    }
+</style>
+
+<h1>Matches disponibles</h1>
+<div class="container button-container">
+    <a href="{{ path('app_matc_index', {'orderBy': 'date'}) }}" class="btn btn-primary btn-details">Tri </a>
+</div>
+<div class="card-container">
+    {% for matc in matcs %}
+    <div class="card">
+        <div class="card-content">
+            <div class="card-header">Match {{ matc.idMatc }}</div>
+                <div class="card-details">
+        <p><strong><span style="color: #ffffff">Nom:</span></strong> <span style="color: #ffffff">{{ matc.nom }}</span></p>
+        <p><strong><span style="color: #ffffff">Type:</span></strong> <span style="color: #ffffff">{{ matc.type }}</span></p>
+        <p><strong><span style="color: #ffffff">Date:</span></strong> <span style="color: #ffffff">{{ matc.date ? matc.date|date('Y-m-d') : '' }}</span></p>
+        <p><strong><span style="color: #ffffff">Heure:</span></strong> <span style="color: #ffffff">{{ matc.heure ? matc.heure|date('H:i:s') : '' }}</span></p>
+        <p><strong><span style="color: #ffffff">Description:</span></strong> <span style="color: #ffffff">{{ matc.description }}</span></p>
+        <p><strong><span style="color: #ffffff">Equipe 1:</span></strong> <span style="color: #ffffff">{{ matc.Equipe1.nom }}</span></p>
+        <p><strong><span style="color: #ffffff">Equipe 2:</span></strong> <span style="color: #ffffff">{{ matc.Equipe2.nom }}</span></p>
+        <p><strong><span style="color: #ffffff">Arbitre:</span></strong> <span style="color: #ffffff">{{ matc.arbitre.nom }}</span></p>
+    </div>
+            <div class="card-button">
+                <a href="{{ path('app_matc_show', {'idMatc': matc.idMatc}) }}" class="btn btn-primary btn-details">Détails</a>
+                <a href="{{ path('app_matc_edit', {'idMatc': matc.idMatc}) }}" class="btn btn-primary btn-modifier">Modifier</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="navigation flex justify-center mb-8">
+    {{ knp_pagination_render(matcs) }}
+</div>
+
+<!-- Centrez le bouton "Create new" -->
+<div class="text-center">
+    <a href="{{ path('app_matc_new') }}" class="btn btn-success">Create new</a>
+</div>
+{% endblock %}

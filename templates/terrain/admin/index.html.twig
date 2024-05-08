@@ -1,0 +1,82 @@
+{% extends 'categorie/admin.html.twig' %}
+
+{% block title %}Liste des Terrains{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Adjustments for admin dashboard style */
+        .container {
+            padding: 20px;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .thead-dark th {
+            color: #fff;
+            background-color: #007bff; /* Sporty blue background */
+            border-color: #007bff;
+        }
+        .btn {
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff; /* Change button color to sporty blue */
+        }
+        .btn-danger {
+            background-color: #dc3545; /* Danger red */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mb-4">Liste des Terrains</h1>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Type de Surface</th>
+                    <th scope="col">Localisation</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Image du Terrain</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for terrain in terrains %}
+                    <tr>
+                        <td>{{ terrain.nom }}</td>
+                        <td>{{ terrain.typeSurface }}</td>
+                        <td>{{ terrain.localisation }}</td>
+                        <td>{{ terrain.prix }}</td>
+                        <td>
+                            {% if terrain.imageTer %}
+                                <img src="{{ asset('uploads/terrain_images/' ~ terrain.imageTer) }}" alt="Terrain Image" style="max-width: 100px;">
+                            {% else %}
+                                Pas d'image disponible
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_terrain_showadmin', {'id': terrain.getIdTerrain()}) }}" class="btn btn-primary">Voir</a>
+                            <a href="{{ path('app_terrain_editadmin', {'id': terrain.getIdTerrain()}) }}" class="btn btn-secondary">Modifier</a>
+                            <form action="{{ path('admin_terrain_deleteadmin', {'id_Terrain': terrain.getIdTerrain()}) }}" method="post" style="display: inline;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ terrain.getIdTerrain()) }}">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément?')">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

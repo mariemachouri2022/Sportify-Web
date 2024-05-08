@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class HomeController extends AbstractController
 {

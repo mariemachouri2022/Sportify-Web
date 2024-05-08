@@ -15,18 +15,19 @@ class Score
     #[ORM\Column]
     private ?int $idscore=null;
 
-    #---------
-    #[ORM\Column]
-    private ?int $competitionid=null;
+    #[ORM\ManyToOne(targetEntity: Competition::class)]
+    #[ORM\JoinColumn(name: 'competitionId', referencedColumnName: 'ID_Competition')]
+    private ?Competition $competitionId=null;
 
 
-    #---------
-    #[ORM\Column]
-    private ?int $winnerid=null;
-
-   #---------
-   #[ORM\Column]
-    private ?int $loserid=null;
+    
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'winnerId', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $winnerId = null; 
+    
+    #[ORM\ManyToOne(targetEntity: Equipe::class)]
+    #[ORM\JoinColumn(name: 'loserId', referencedColumnName: 'IDEquipe')]
+    private ?Equipe $loserId = null;
 
    #---------
    #[ORM\Column]
@@ -49,38 +50,38 @@ class Score
         return $this->idscore;
     }
 
-    public function getCompetitionid(): ?int
+    public function getCompetitionid(): ?Competition
     {
-        return $this->competitionid;
+        return $this->competitionId;
     }
 
-    public function setCompetitionid(?int $competitionid): static
+    public function setCompetitionid(?Competition $competitionId): static
     {
-        $this->competitionid = $competitionid;
+        $this->competitionId = $competitionId;
 
         return $this;
     }
 
-    public function getWinnerid(): ?int
+    public function getWinnerid(): ?Equipe
     {
-        return $this->winnerid;
+        return $this->winnerId;
     }
 
-    public function setWinnerid(?int $winnerid): static
+    public function setWinnerid(?Equipe $winnerId): static
     {
-        $this->winnerid = $winnerid;
+        $this->winnerId = $winnerId;
 
         return $this;
     }
 
-    public function getLoserid(): ?int
+    public function getLoserid(): ?Equipe
     {
-        return $this->loserid;
+        return $this->loserId;
     }
 
-    public function setLoserid(?int $loserid): static
+    public function setLoserid(?Equipe $loserId): static
     {
-        $this->loserid = $loserid;
+        $this->loserId = $loserId;
 
         return $this;
     }

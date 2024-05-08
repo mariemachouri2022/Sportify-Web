@@ -3,43 +3,50 @@
 namespace App\Entity;
 
 use DateTime;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $idReservation=null;
+    #[ORM\Column(name: "ID_Reservation", type: "integer")]
+    private ?int $idReservation = null;
 
-    #[ORM\Column]
-    private ?DateTime $dateHeure=null;
+    #[ORM\Column(name: "Date_Heure", type: "datetime")]
+    #[Assert\NotBlank(message: "Date and Time cannot be blank")]
+    private ?DateTime $dateHeure = null;
 
-  
-    #[ORM\Column(length:255)]
-    private ?string $duree=null;
+    #[ORM\Column(name: "Duree", length: 15)] // Set maximum length to 15 characters
+    #[Assert\NotBlank(message: "Duration cannot be blank")]
+    #[Assert\Regex(
+        pattern: '/^(?!0000$).*$/',
+        message: "Duration cannot be '0000'"
+    )]
+    private ?string $duree = null;
 
-    #[ORM\ManyToOne(inversedBy:'utilisateurs')]   
-    private ?Utilisateurs $id=null;
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(name: "id", referencedColumnName: "id", nullable: false)]
+    private ?Utilisateurs $utilisateur = null;
 
-    
-    #[ORM\ManyToOne(inversedBy:'terrains')]   
-    private ?Terrain $idTerrain=null;
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(name: "id_Terrain", referencedColumnName: "id_Terrain", nullable: false)]
+    private ?Terrain $idTerrain = null;
 
     public function getIdReservation(): ?int
     {
         return $this->idReservation;
     }
 
-    public function getDateHeure(): ?\DateTimeInterface
+    public function getDateHeure(): ?DateTime
     {
         return $this->dateHeure;
     }
 
-    public function setDateHeure(?\DateTimeInterface $dateHeure): static
+    public function setDateHeure(?DateTime $dateHeure): self
     {
         $this->dateHeure = $dateHeure;
 
@@ -51,21 +58,21 @@ class Reservation
         return $this->duree;
     }
 
-    public function setDuree(?string $duree): static
+    public function setDuree(?string $duree): self
     {
         $this->duree = $duree;
 
         return $this;
     }
 
-    public function getId(): ?Utilisateurs
+    public function getUtilisateur(): ?Utilisateurs
     {
-        return $this->id;
+        return $this->utilisateur;
     }
 
-    public function setId(?Utilisateurs $id): static
+    public function setUtilisateur(?Utilisateurs $utilisateur): self
     {
-        $this->id = $id;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
@@ -75,12 +82,22 @@ class Reservation
         return $this->idTerrain;
     }
 
-    public function setIdTerrain(?Terrain $idTerrain): static
+    public function setIdTerrain(?Terrain $idTerrain): self
     {
         $this->idTerrain = $idTerrain;
 
         return $this;
     }
 
-
+    // Callback function to validate date range
+    #[Assert\Callback(callback: 'validateDateRange')]
+    public function validateDateRange(ExecutionContextInterface $context)
+    {
+        $year = $this->dateHeure->format('Y');
+        if ($year < 2024 || $year > 2025) {
+            $context->buildViolation('The date must be between 2024 and 2025.')
+                ->atPath('dateHeure')
+                ->addViolation();
+        }
+    }
 }

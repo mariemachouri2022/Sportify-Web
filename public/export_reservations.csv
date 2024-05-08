@@ -1,0 +1,2 @@
+idReservation,dateHeure,duree,utilisateur,idTerrain.idTerrain,idTerrain.nom,idTerrain.typeSurface,idTerrain.localisation,idTerrain.prix,idTerrain.idProprietaire,idTerrain.imageTer,idTerrain.promotion,idTerrain.__initializer__,idTerrain.__cloner__,idTerrain.__isInitialized__
+1,2025-10-10T10:10:00+02:00,10,,1,ww,wwxwx,wxwxwxwx,10,,bb-663b87d2844a5.png,2,,,1

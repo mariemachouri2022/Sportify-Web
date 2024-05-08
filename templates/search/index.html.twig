@@ -1,0 +1,21 @@
+{% extends 'equipe/base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Recherche</h1>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-6">
+           
+                <h2>QR Code</h2>
+                <img src="{{ asset('qrcode.png') }}" alt="QR Code">
+          
+        </div>
+    </div>
+{% endblock %}

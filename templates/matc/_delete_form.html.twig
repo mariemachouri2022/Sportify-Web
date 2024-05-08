@@ -1,0 +1,7 @@
+
+<form method="post" action="{{ path('app_matc_delete', {'idMatc': matc.idMatc}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élément?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matc.idMatc) }}">
+<button class="btne" style="background-color: #dc3545; color: #fff; border: none; border-radius: 5px; padding: 0.5em 1em; cursor: pointer;">
+    Supprimer
+</button>
+</form>
